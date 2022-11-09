@@ -1,4 +1,7 @@
+/** @jsxImportSource @emotion/react */
+
 import React from "react";
+import { css, Global } from "@emotion/react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -14,6 +17,10 @@ import ProductDisplayPage from "./routes/ProductDisplayPage";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
+const fontStyle = css`
+  font-family: "Raleway";
+`;
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,8 +32,8 @@ const router = createBrowserRouter([
       },
       {
         path: "product/id",
-        element: <ProductDisplayPage />
-      }
+        element: <ProductDisplayPage />,
+      },
     ],
   },
 ]);
@@ -35,6 +42,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <Global styles={fontStyle} />
     </Provider>
   </React.StrictMode>
 );

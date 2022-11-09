@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { css } from "@emotion/react";
 
-import { graphql_test, get_category_names } from "../GraphQLEndpoint";
+import { get_category_names } from "../GraphQLEndpoint";
 import { connect } from "react-redux";
 
-import { productCategoriesCreate, selectProductCategories } from "../features/product_data/productCategoriesSlice";
+import {
+  productCategoriesCreate,
+} from "../features/product_data/productCategoriesSlice";
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -19,10 +21,8 @@ class CategoryPage extends Component {
   saveProductCategories = (productCategories) => {
     this.props.productCategoriesCreate(productCategories);
     // this.setState({ result: "" });
-    console.log(this.props.categories)
+    console.log(this.props.categories);
   };
-
-  
 
   componentDidMount() {
     const graphql = get_category_names();
@@ -30,8 +30,6 @@ class CategoryPage extends Component {
       this.setState({ result: graphql_result });
       this.saveProductCategories(graphql_result);
     });
-    
-   
   }
   render() {
     return (
@@ -46,17 +44,18 @@ class CategoryPage extends Component {
       >
         Category name
         {JSON.stringify(this.state.result)}
+        {JSON.stringify(this.props.categories)}
       </div>
     );
   }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function (state) {
   return {
-    categories: state.productCategories.entities
-  }
-}
+    categories: state.productCategories.categories,
+  };
+};
 
-// state => ({categories: selectProductCategories(state)})
-
-export default connect(mapStateToProps, { productCategoriesCreate })(CategoryPage);
+export default connect(mapStateToProps, { productCategoriesCreate })(
+  CategoryPage
+);

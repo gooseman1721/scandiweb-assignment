@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  entities: [],
+  categories: [],
   status: null,
 };
 
@@ -10,12 +10,12 @@ const productCategoriesSlice = createSlice({
   initialState,
   reducers: {
     productCategoriesCreate(state, action) {
-      state.entities.push(action.payload);
+      state.categories = [...action.payload];
     },
   },
 });
 
-export const selectProductCategories = (state) => state.entities;
+export const selectProductCategories = (state) => state.categories;
 
 export const { productCategoriesCreate } = productCategoriesSlice.actions;
 

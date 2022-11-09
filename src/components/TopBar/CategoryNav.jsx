@@ -1,10 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { Component } from "react";
-
+import { Component } from "react";
 import { css } from "@emotion/react";
 
-export default class CategoryNav extends Component {
+import { connect } from "react-redux";
+
+
+const navItemStyle = css`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 120%;
+`;
+
+class CategoryNav extends Component {
   render() {
     return (
       <div
@@ -18,22 +27,24 @@ export default class CategoryNav extends Component {
           height: 56px;
           left: 101px;
           bottom: 0px;
+          gap: 10px;
         `}
       >
         <div
-          css={css`
-            font-family: "Raleway";
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 120%;
-          `}
+          css={navItemStyle}
         >
-          First
+          {this.props.categories[0]}
         </div>
-        <div>Second</div>
-        <div>Third</div>
+        <div css={navItemStyle}>{this.props.categories[1]}</div>
+        <div css={navItemStyle}>{this.props.categories[2]}</div>
       </div>
     );
   }
 }
+const mapStateToProps = function (state) {
+  return {
+    categories: state.productCategories.categories,
+  };
+};
+
+export default connect(mapStateToProps, null)(CategoryNav);

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { client, InlineFragment, Query, Field } from "@tilework/opus";
+import { client, Query, Field } from "@tilework/opus";
 
 client.setEndpoint("http://localhost:4000/");
 
@@ -27,7 +26,7 @@ async function get_category_names() {
 
     const queryResult = await client.post(query);
 
-    return queryResult;
+    return queryResult.categories.map((element) => element.name);
   } catch (err) {
     console.log(err);
   }
@@ -92,7 +91,13 @@ async function get_item_details(product_id) {
   }
 }
 
-export { graphql_test, get_category_names, get_items, get_category_items, get_item_details };
+export {
+  graphql_test,
+  get_category_names,
+  get_items,
+  get_category_items,
+  get_item_details,
+};
 
 // export default class GraphQLEndpoint extends Component {
 
