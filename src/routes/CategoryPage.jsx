@@ -3,12 +3,12 @@
 import { Component } from "react";
 import { css } from "@emotion/react";
 
-import { get_category_names } from "../GraphQLEndpoint";
+import { get_category_names, get_category_items } from "../GraphQLEndpoint";
 import { connect } from "react-redux";
 
-import {
-  productCategoriesCreate,
-} from "../features/product_data/productCategoriesSlice";
+import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
+import { productListCreate } from "../features/product_data/productListSlice";
+import ProductBox from "../components/TopBar/ProductBox";
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -20,16 +20,36 @@ class CategoryPage extends Component {
 
   saveProductCategories = (productCategories) => {
     this.props.productCategoriesCreate(productCategories);
-    // this.setState({ result: "" });
-    console.log(this.props.categories);
   };
 
   componentDidMount() {
-    const graphql = get_category_names();
-    graphql.then((graphql_result) => {
-      this.setState({ result: graphql_result });
-      this.saveProductCategories(graphql_result);
-    });
+    // fetch category names first
+    get_category_names()
+      .then((graphql_result) => {
+        this.setState({ result: graphql_result });
+        this.saveProductCategories(graphql_result);
+      })
+      // then fetch category items after we have a category
+      .then(() => {
+        get_category_items(
+          this.props.categories[this.props.selectedCategory]
+        ).then((graphql_result) => {
+          console.log(graphql_result);
+          this.props.productListCreate(graphql_result);
+        });
+      });
+    console.log(this.props.categories[this.props.selectedCategory]);
+  }
+  componentDidUpdate(prevProps) {
+    // fetch category items after user changes category
+    if (this.props.selectedCategory !== prevProps.selectedCategory) {
+      get_category_items(
+        this.props.categories[this.props.selectedCategory]
+      ).then((graphql_result) => {
+        console.log(graphql_result);
+        this.props.productListCreate(graphql_result);
+      });
+    }
   }
   render() {
     return (
@@ -42,9 +62,12 @@ class CategoryPage extends Component {
           margin: auto;
         `}
       >
-        Category name
-        {JSON.stringify(this.state.result)}
-        {JSON.stringify(this.props.categories)}
+        <p>
+          This is category {this.props.categories[this.props.selectedCategory]}
+        </p>
+        {this.props.productList.map((data, index) => (
+          <ProductBox key={index} productData={data} />
+        ))}
       </div>
     );
   }
@@ -53,9 +76,12 @@ class CategoryPage extends Component {
 const mapStateToProps = function (state) {
   return {
     categories: state.productCategories.categories,
+    selectedCategory: state.productCategories.selectedCategory,
+    productList: state.productList.products,
   };
 };
 
-export default connect(mapStateToProps, { productCategoriesCreate })(
-  CategoryPage
-);
+export default connect(mapStateToProps, {
+  productCategoriesCreate,
+  productListCreate,
+})(CategoryPage);

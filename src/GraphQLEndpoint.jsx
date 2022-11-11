@@ -34,14 +34,18 @@ async function get_category_names() {
 
 async function get_category_items(category) {
   try {
-    const fields = ["id", "name", "inStock", "brand", "category"];
+    const fields = ["id", "name", "inStock", "brand", "category", "gallery"];
     const query = new Query("category", true)
       .addArgument("input", "CategoryInput", { title: category })
       .addField(new Field("products", true).addFieldList(fields));
 
     const queryResult = await client.post(query);
 
-    return queryResult;
+    const result = queryResult.category.products.map((product) => {
+      return { ...product, gallery: product.gallery[0] };
+    });
+
+    return result;
   } catch (err) {
     console.log(err);
   }
@@ -50,6 +54,7 @@ async function get_category_items(category) {
 async function get_items() {
   try {
     const fields = ["id", "name", "inStock", "brand", "category"];
+
     const query = new Query("category", true).addField(
       new Field("products", true).addFieldList(fields)
     );
