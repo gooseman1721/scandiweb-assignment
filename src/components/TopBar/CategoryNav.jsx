@@ -24,6 +24,7 @@ class CategoryNav extends Component {
           width: 234px;
           margin-left: 100px;
           height: 80px;
+          flex-grow: 1;
         `}
       >
         {this.props.categories.map((categoryName, index) => (
