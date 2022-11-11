@@ -57,8 +57,9 @@ class CategoryPage extends Component {
         css={css`
           background-color: #ffffff;
           width: 1440px;
-          height: 1513px;
+          height: 1433px;
           margin: auto;
+          
         `}
       >
         <div
@@ -69,6 +70,7 @@ class CategoryPage extends Component {
             font-size: 42px;
             line-height: 160%;
             margin-left: 100px;
+            margin-top: 80px;
           `}
         >
           {this.props.categories[this.props.selectedCategory][0].toUpperCase() +

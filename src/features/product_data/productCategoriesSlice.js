@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  categories: [],
+  categories: ["default"],
   selectedCategory: 0,
   status: null,
 };

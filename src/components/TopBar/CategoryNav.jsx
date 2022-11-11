@@ -7,16 +7,11 @@ import { connect } from "react-redux";
 
 import { changeSelectedCategory } from "../../features/product_data/productCategoriesSlice";
 
-const navItemStyle = css`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 120%;
-`;
-
 class CategoryNav extends Component {
   handleClick(categoryIndex) {
-    this.props.changeSelectedCategory(categoryIndex);
+    if (categoryIndex !== this.props.selectedCategory) {
+      this.props.changeSelectedCategory(categoryIndex);
+    }
   }
 
   render() {
@@ -26,24 +21,40 @@ class CategoryNav extends Component {
           display: flex;
           flex-direction: row;
           align-items: flex-start;
-          padding: 0px;
-
           width: 234px;
-          height: 56px;
-          left: 101px;
-          bottom: 0px;
-          gap: 10px;
+          margin-left: 100px;
+          height: 80px;
         `}
       >
-        <div css={navItemStyle} onClick={() => this.handleClick(0)}>
-          {this.props.categories[0]}
-        </div>
-        <div css={navItemStyle} onClick={() => this.handleClick(1)}>
-          {this.props.categories[1]}
-        </div>
-        <div css={navItemStyle} onClick={() => this.handleClick(2)}>
-          {this.props.categories[2]}
-        </div>
+        {this.props.categories.map((categoryName, index) => (
+          <div
+            css={css`
+              font-family: "Raleway";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 80px;
+              height: 80px;
+              margin-left: 16px;
+              margin-right: 16px;
+
+              &:hover {
+                cursor: pointer;
+                color: #5ece7b;
+                border-bottom: 2px solid #5ece7b;
+              }
+              ${this.props.selectedCategory === index &&
+              `
+                color: #5ece7b;
+                border-bottom: 2px solid #5ece7b;
+                font-weight: 600;
+              `}
+            `}
+            onClick={() => this.handleClick(index)}
+          >
+            {categoryName.toUpperCase()}
+          </div>
+        ))}
       </div>
     );
   }

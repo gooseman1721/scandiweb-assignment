@@ -15,7 +15,6 @@ export default class TopBar extends Component {
           top: 0;
         `}
       >
-        CategoryBar
         <CategoryNav />
       </div>
     );
