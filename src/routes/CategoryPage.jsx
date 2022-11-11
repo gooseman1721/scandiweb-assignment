@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
 import { productListCreate } from "../features/product_data/productListSlice";
-import ProductBox from "../components/TopBar/ProductBox";
+import ProductCard from "../components/TopBar/ProductCard";
 
 class CategoryPage extends Component {
   constructor(props) {
@@ -58,16 +58,36 @@ class CategoryPage extends Component {
           background-color: #ffffff;
           width: 1440px;
           height: 1513px;
-
           margin: auto;
         `}
       >
-        <p>
-          This is category {this.props.categories[this.props.selectedCategory]}
-        </p>
-        {this.props.productList.map((data, index) => (
-          <ProductBox key={index} productData={data} />
-        ))}
+        <div
+          css={css`
+            font-family: "Raleway";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 42px;
+            line-height: 160%;
+            margin-left: 100px;
+          `}
+        >
+          {this.props.categories[this.props.selectedCategory][0].toUpperCase() +
+            this.props.categories[this.props.selectedCategory].slice(1)}
+        </div>
+        <div
+          css={css`
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-gap: 40px;
+            margin-left: 100px;
+            margin-right: 100px;
+            margin-top: 100px;
+          `}
+        >
+          {this.props.productList.map((data, index) => (
+            <ProductCard key={index} productData={data} />
+          ))}
+        </div>
       </div>
     );
   }

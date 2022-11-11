@@ -34,11 +34,22 @@ async function get_category_names() {
 
 async function get_category_items(category) {
   try {
-    const fields = ["id", "name", "inStock", "brand", "category", "gallery"];
+    const fields = ["id", "name", "inStock", "category", "gallery"];
+    const currencyFields = ["label", "symbol"];
+
     const query = new Query("category", true)
       .addArgument("input", "CategoryInput", { title: category })
-      .addField(new Field("products", true).addFieldList(fields));
-
+      .addField(
+        new Field("products", true)
+          .addFieldList(fields)
+          .addField(
+            new Field("prices", true)
+              .addField(new Field("amount", true))
+              .addField(
+                new Field("currency", true).addFieldList(currencyFields)
+              )
+          )
+      );
     const queryResult = await client.post(query);
 
     const result = queryResult.category.products.map((product) => {
