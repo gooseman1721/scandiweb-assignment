@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 
 import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
 import PDPRightPanel from "../components/PDPRightPanel";
+import PDPImageCarousel from "../components/PDPImageCarousel";
 
 export function withRouter(Children) {
   return (props) => {
@@ -49,10 +50,13 @@ class ProductDisplayPage extends Component {
           margin: auto;
         `}
       >
-        <PDPRightPanel productDetails={this.state.thisProductDetails} />
-        {/* {console.log(this.props.productDetails)}
-        {JSON.stringify(this.props.params)}
-        {JSON.stringify(this.props.productDetails)} */}
+        <div css={css`
+          margin-top: 80px;
+          display: flex;
+        `}>
+          <PDPImageCarousel productDetails={this.state.thisProductDetails}/>
+          <PDPRightPanel productDetails={this.state.thisProductDetails} />
+        </div>
       </div>
     );
   }

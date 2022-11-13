@@ -78,7 +78,8 @@ class ProductCard extends Component {
             alt={this.props.productData.name}
             css={css`
               flex-shrink: 1;
-              min-width: 100%;
+              max-height: 100%;
+              max-width: 100%;
             `}
           />
         </div>

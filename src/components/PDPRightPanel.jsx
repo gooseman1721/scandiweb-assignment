@@ -8,11 +8,7 @@ import { css } from "@emotion/react";
 class PDPRightPanel extends Component {
   render() {
     return (
-      <div
-        css={css`
-          margin-top: 80px;
-        `}
-      >
+      <div>
         <div
           css={css`
             font-family: "Raleway";
