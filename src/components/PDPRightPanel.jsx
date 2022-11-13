@@ -8,7 +8,11 @@ import { css } from "@emotion/react";
 class PDPRightPanel extends Component {
   render() {
     return (
-      <div>
+      <div
+        css={css`
+          margin-left: 50px;
+        `}
+      >
         <div
           css={css`
             font-family: "Raleway";
@@ -18,7 +22,6 @@ class PDPRightPanel extends Component {
             line-height: 27px;
             color: #1d1f22;
             margin-bottom: 8px;
-
           `}
         >
           {this.props.productDetails.brand}
@@ -32,10 +35,30 @@ class PDPRightPanel extends Component {
             line-height: 27px;
             color: #1d1f22;
             margin-top: 8px;
-
+            font-feature-settings: "lnum" 1;
           `}
         >
           {this.props.productDetails.name}
+        </div>
+        <div>
+          control panel
+          <div>attributes</div>
+          <div>price</div>
+          <div>add to cart button</div>
+          <div
+            css={css`
+              font-family: "Roboto";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 159.96%;
+              color: #1d1f22;
+              margin-top: 200px;
+            `}
+            dangerouslySetInnerHTML={{
+              __html: this.props.productDetails.description,
+            }}
+          ></div>
         </div>
       </div>
     );

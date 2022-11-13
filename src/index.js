@@ -6,7 +6,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -24,7 +24,7 @@ const fontStyle = css`
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <><App/> <ScrollRestoration/></>,
     children: [
       {
         index: true,

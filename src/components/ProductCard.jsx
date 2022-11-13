@@ -54,6 +54,7 @@ class ProductCard extends Component {
           &:hover {
             box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
             transition: 0.1s;
+            cursor: pointer;
           }
           &:hover [data-comp="quickAddToCart"] {
             transition: 0.1s;
