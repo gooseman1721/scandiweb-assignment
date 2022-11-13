@@ -34,7 +34,7 @@ async function get_category_names() {
 
 async function get_category_items(category) {
   try {
-    const fields = ["id", "name", "inStock", "category", "gallery"];
+    const fields = ["id", "name", "inStock", "category", "gallery", "brand"];
     const currencyFields = ["label", "symbol"];
 
     const query = new Query("category", true)
@@ -79,7 +79,7 @@ async function get_items() {
 
 async function get_item_details(product_id) {
   try {
-    const fields = ["name", "inStock", "gallery", "description", "brand"];
+    const fields = ["id", "name", "inStock", "gallery", "description", "brand"];
     const currencyFields = ["label", "symbol"];
     const attributesFields = ["id", "name", "type"];
     const attributesItemsFields = ["id", "value", "displayValue"];

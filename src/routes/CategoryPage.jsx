@@ -2,13 +2,14 @@
 
 import { Component } from "react";
 import { css } from "@emotion/react";
+import { connect } from "react-redux";
 
 import { get_category_names, get_category_items } from "../GraphQLEndpoint";
-import { connect } from "react-redux";
+
 
 import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
 import { productListCreate } from "../features/product_data/productListSlice";
-import ProductCard from "../components/TopBar/ProductCard";
+import ProductCard from "../components/ProductCard";
 
 class CategoryPage extends Component {
   constructor(props) {

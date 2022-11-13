@@ -3,6 +3,11 @@
 import { Component } from "react";
 
 import { css } from "@emotion/react";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { get_item_details } from "../GraphQLEndpoint";
+import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
 
 const quickAddToCartStyle = css`
   position: relative;
@@ -16,7 +21,28 @@ const quickAddToCartStyle = css`
   opacity: 0;
 `;
 
-export default class ProductCard extends Component {
+class ProductCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cardClicked: false,
+      detailsFetched: false,
+    };
+  }
+
+  handleCardClick() {
+    this.setState({ cardClicked: true });
+    if (!this.props.productDetailsIdList.includes(this.props.productData.id)) {
+      get_item_details(this.props.productData.id)
+        .then((graphql_result) =>
+          this.props.productDetailsCreate(graphql_result.product)
+        )
+        .then(() => this.setState({ detailsFetched: true }));
+    } else {
+      this.setState({ detailsFetched: true });
+    }
+  }
+
   render() {
     return (
       <div
@@ -34,6 +60,7 @@ export default class ProductCard extends Component {
             opacity: 1;
           }
         `}
+        onClick={() => this.handleCardClick()}
       >
         <div
           css={css`
@@ -72,9 +99,8 @@ export default class ProductCard extends Component {
               font-feature-settings: "lnum" 1;
             `}
           >
-            {this.props.productData.name}
+            {this.props.productData.brand} {this.props.productData.name}
           </div>
-          {/* <div>{this.props.productData.gallery}</div> */}
           <div
             css={css`
               font-family: "Raleway";
@@ -90,7 +116,18 @@ export default class ProductCard extends Component {
           </div>
         </div>
         <div css={quickAddToCartStyle} data-comp="quickAddToCart"></div>
+        {this.state.cardClicked && this.state.detailsFetched && (
+          <Navigate to={`product/${this.props.productData.id}`} />
+        )}
       </div>
     );
   }
 }
+
+const mapStateToProps = function (state) {
+  return {
+    productDetailsIdList: state.productDetails.idList,
+  };
+};
+
+export default connect(mapStateToProps, { productDetailsCreate })(ProductCard);
