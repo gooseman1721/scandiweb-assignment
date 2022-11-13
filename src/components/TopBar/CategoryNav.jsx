@@ -28,7 +28,7 @@ class CategoryNav extends Component {
         `}
       >
         {this.props.categories.map((categoryName, index) => (
-          <div
+          <div key={index}
             css={css`
               font-family: "Raleway";
               font-style: normal;
