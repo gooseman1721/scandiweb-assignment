@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { css } from "@emotion/react";
+import PDPAddToCartButton from "./PDPAddToCartButton";
 
 class PDPRightPanel extends Component {
   render() {
@@ -11,7 +12,7 @@ class PDPRightPanel extends Component {
       <div
         css={css`
           margin-left: 50px;
-          width: 292px
+          width: 292px;
         `}
       >
         <div
@@ -44,8 +45,8 @@ class PDPRightPanel extends Component {
         <div>
           control panel
           <div>attributes</div>
-          <div>price</div>
-          <div>add to cart button</div>
+          <div>{this.props.productDetails.prices[0].amount}</div>
+          <PDPAddToCartButton />
           <div
             css={css`
               font-family: "Roboto";

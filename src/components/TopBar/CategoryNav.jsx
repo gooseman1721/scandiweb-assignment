@@ -4,13 +4,26 @@ import { Component } from "react";
 import { css } from "@emotion/react";
 
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 import { changeSelectedCategory } from "../../features/product_data/productCategoriesSlice";
 
 class CategoryNav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      changePage: false,
+    };
+  }
+
   handleClick(categoryIndex) {
     if (categoryIndex !== this.props.selectedCategory) {
       this.props.changeSelectedCategory(categoryIndex);
+    }
+    if (window.location.pathname !== "/") {
+      this.setState({ changePage: true });
+    } else if (window.location.pathname === "/") {
+      this.setState({ changePage: false });
     }
   }
 
@@ -28,7 +41,8 @@ class CategoryNav extends Component {
         `}
       >
         {this.props.categories.map((categoryName, index) => (
-          <div key={index}
+          <div
+            key={index}
             css={css`
               font-family: "Raleway";
               font-style: normal;
@@ -56,6 +70,12 @@ class CategoryNav extends Component {
             {categoryName.toUpperCase()}
           </div>
         ))}
+        {this.state.changePage && (
+          <>
+            {this.setState({ changePage: false })}
+            <Navigate to={`/`} />
+          </>
+        )}
       </div>
     );
   }
