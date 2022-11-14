@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
-import PDPRightPanel from "../components/PDPRightPanel";
-import PDPImageCarousel from "../components/PDPImageCarousel";
+import PDPRightPanel from "../components/PDP/PDPRightPanel";
+import PDPImageCarousel from "../components/PDP/PDPImageCarousel";
 
 export function withRouter(Children) {
   return (props) => {

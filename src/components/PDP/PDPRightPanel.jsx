@@ -11,6 +11,7 @@ class PDPRightPanel extends Component {
       <div
         css={css`
           margin-left: 50px;
+          width: 292px
         `}
       >
         <div
@@ -53,7 +54,6 @@ class PDPRightPanel extends Component {
               font-size: 16px;
               line-height: 159.96%;
               color: #1d1f22;
-              margin-top: 200px;
             `}
             dangerouslySetInnerHTML={{
               __html: this.props.productDetails.description,
@@ -64,7 +64,5 @@ class PDPRightPanel extends Component {
     );
   }
 }
-
-
 
 export default connect()(PDPRightPanel);
