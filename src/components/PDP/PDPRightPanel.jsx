@@ -46,7 +46,7 @@ class PDPRightPanel extends Component {
           control panel
           <div>attributes</div>
           <div>{this.props.productDetails.prices[0].amount}</div>
-          <PDPAddToCartButton />
+          <PDPAddToCartButton inStock={this.props.productDetails.inStock}/>
           <div
             css={css`
               font-family: "Roboto";

@@ -19,6 +19,7 @@ const quickAddToCartStyle = css`
   background-color: #5ece7b;
   transition: 0.1s;
   opacity: 0;
+  z-index: 4;
 `;
 
 class ProductCard extends Component {
@@ -81,8 +82,29 @@ class ProductCard extends Component {
               flex-shrink: 1;
               max-height: 100%;
               max-width: 100%;
+              z-index: 1;
+              ${this.props.productData.inStock === false &&
+              `
+                opacity: 0.5;
+              `}
             `}
           />
+          {this.props.productData.inStock === false && (
+            <div
+              css={css`
+                z-index: 2;
+                position: absolute;
+                font-family: "Raleway";
+                font-style: normal;
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 160%;
+                color: #8d8f9a;
+              `}
+            >
+              OUT OF STOCK
+            </div>
+          )}
         </div>
         <div
           css={css`
@@ -99,6 +121,10 @@ class ProductCard extends Component {
               font-size: 18px;
               line-height: normal;
               font-feature-settings: "lnum" 1;
+              ${this.props.productData.inStock === false &&
+              `
+                color: #8d8f9a;
+              `}
             `}
           >
             {this.props.productData.brand} {this.props.productData.name}
@@ -111,6 +137,10 @@ class ProductCard extends Component {
               font-size: 18px;
               line-height: 160%;
               font-feature-settings: "lnum" 1;
+              ${this.props.productData.inStock === false &&
+              `
+                color: #8d8f9a;
+              `}
             `}
           >
             {this.props.productData.prices[0].currency.symbol}

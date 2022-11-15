@@ -20,13 +20,15 @@ export default class PDPImageCarousel extends Component {
 
   render() {
     return (
-      <div css={css`
-        display: flex;
-        flex-direction: row;
-        margin-left: 100px;
-        margin-right: 50px;
-        gap: 20px;
-      `}>
+      <div
+        css={css`
+          display: flex;
+          flex-direction: row;
+          margin-left: 100px;
+          margin-right: 50px;
+          gap: 20px;
+        `}
+      >
         <div>
           {this.props.productDetails.gallery.map((imageLink, index) => (
             <div
@@ -60,7 +62,7 @@ export default class PDPImageCarousel extends Component {
             justify-content: center;
             align-items: center;
             overflow: hidden;
-           // margin: auto;
+            // margin: auto;
             margin-top: 2px;
           `}
         >
