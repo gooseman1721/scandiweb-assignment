@@ -20,6 +20,7 @@ class CategoryNav extends Component {
     if (categoryIndex !== this.props.selectedCategory) {
       this.props.changeSelectedCategory(categoryIndex);
     }
+    
     if (window.location.pathname !== "/") {
       this.setState({ changePage: true });
     } else if (window.location.pathname === "/") {
@@ -70,6 +71,7 @@ class CategoryNav extends Component {
             {categoryName.toUpperCase()}
           </div>
         ))}
+        {/* This page changing feature results in flashing, should be done differently */}
         {this.state.changePage && (
           <>
             {this.setState({ changePage: false })}

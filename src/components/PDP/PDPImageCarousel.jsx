@@ -32,6 +32,7 @@ export default class PDPImageCarousel extends Component {
         <div>
           {this.props.productDetails.gallery.map((imageLink, index) => (
             <div
+              key={`${this.props.productDetails.name} ${index}`}
               css={css`
                 width: 80px;
                 height: 80px;
