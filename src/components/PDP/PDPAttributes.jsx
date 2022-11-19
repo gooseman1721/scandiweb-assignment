@@ -35,7 +35,9 @@ export default class PDPAttributes extends Component {
   render() {
     return (
       <>
-        <div>
+        <div css={css`
+          min-height: 270px;
+        `}>
           {this.props.attributes
             // sorting so that attribute types appear always in the same order
             .sort((a, b) => {
@@ -111,6 +113,7 @@ export default class PDPAttributes extends Component {
                               &:hover {
                                 border: 1px solid #5ece7b;
                                 padding: 1px;
+                                cursor: pointer;
                               }
                             `}
                           ></div>
