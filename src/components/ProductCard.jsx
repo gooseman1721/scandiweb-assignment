@@ -61,6 +61,15 @@ class ProductCard extends Component {
             transition: 0.1s;
             opacity: 1;
           }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+          animation: 200ms ease-out 0s 1 fadeIn;
         `}
         onClick={() => this.handleCardClick()}
       >

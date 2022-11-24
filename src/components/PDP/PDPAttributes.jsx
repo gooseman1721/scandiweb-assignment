@@ -53,6 +53,7 @@ const unselectedSwatchAttributeStyle = css`
   z-index: 2;
   position: relative;
   display: flex;
+  box-shadow: 4px 4px 10px 4px rgba(161, 166, 172, 0.384);
 `;
 
 const selectedSwatchAttributeStyle = css`
@@ -61,6 +62,7 @@ const selectedSwatchAttributeStyle = css`
   z-index: 2;
   margin: 1px;
   display: flex;
+  box-shadow: 4px 4px 10px 4px rgba(161, 166, 172, 0.384);
 `;
 
 const selectedSwatchBorderBoxStyle = css`
@@ -76,8 +78,8 @@ const selectedSwatchBorderBoxStyle = css`
 const unselectedSwatchBorderBoxStyle = css`
   width: 34px;
   height: 34px;
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: #ffffff11;
+  border: 1px solid #ffffff11;
   z-index: 1;
   align-items: center;
   justify-items: center;
