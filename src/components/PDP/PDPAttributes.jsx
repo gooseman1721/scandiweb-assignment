@@ -86,23 +86,23 @@ const unselectedSwatchBorderBoxStyle = css`
 `;
 
 export default class PDPAttributes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedAttributes: {},
-    };
-  }
-
-  handleAttributeClick(attribute, item_id) {
-    this.setState({
-      selectedAttributes: {
-        ...this.state.selectedAttributes,
-        [attribute]: item_id,
-      },
-    });
+  handleAttributeClick(attribute_id, item_id) {
+    this.props.onProductAttributeChange(attribute_id, item_id);
   }
 
   render() {
+    const defaultAttributeValues = () => {
+      const attributeObj = {};
+      this.props.attributes.forEach((element) => {
+        attributeObj[element.id] = element.items[0].id;
+      });
+      return attributeObj;
+    };
+    const attributeValues =
+      Object.keys(this.props.attributeValues).length === 0
+        ? defaultAttributeValues()
+        : { ...defaultAttributeValues(), ...this.props.attributeValues };
+
     return (
       <>
         <div
@@ -147,10 +147,7 @@ export default class PDPAttributes extends Component {
                         `}
                       >
                         {attribute.items.map((item) => {
-                          if (
-                            this.state.selectedAttributes[attribute.name] ===
-                            item.id
-                          ) {
+                          if (attributeValues[attribute.name] === item.id) {
                             return (
                               <div
                                 key={item.id}
@@ -165,7 +162,7 @@ export default class PDPAttributes extends Component {
                                 key={item.id}
                                 onClick={() =>
                                   this.handleAttributeClick(
-                                    attribute.name,
+                                    attribute.id,
                                     item.id
                                   )
                                 }
@@ -201,14 +198,9 @@ export default class PDPAttributes extends Component {
                         `}
                       >
                         {attribute.items.map((item) => {
-                          if (
-                            this.state.selectedAttributes[attribute.name] ===
-                            item.id
-                          ) {
+                          if (attributeValues[attribute.name] === item.id) {
                             return (
-                              <div
-                                css={selectedSwatchBorderBoxStyle}
-                              >
+                              <div css={selectedSwatchBorderBoxStyle}>
                                 <div
                                   key={item.id}
                                   css={css`
@@ -229,7 +221,7 @@ export default class PDPAttributes extends Component {
                                   `}
                                   onClick={() =>
                                     this.handleAttributeClick(
-                                      attribute.name,
+                                      attribute.id,
                                       item.id
                                     )
                                   }

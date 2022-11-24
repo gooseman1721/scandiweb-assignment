@@ -8,6 +8,21 @@ import PDPAddToCartButton from "./PDPAddToCartButton";
 import PDPAttributes from "./PDPAttributes";
 
 class PDPRightPanel extends Component {
+  constructor(props) {
+    super(props);
+    this.handleProductAttributeChange =
+      this.handleProductAttributeChange.bind(this);
+    this.state = { productAttributesValues: {} };
+  }
+
+  handleProductAttributeChange(attribute_id, item_id) {
+    this.setState({
+      productAttributesValues: {
+        ...this.state.productAttributesValues,
+        [attribute_id]: item_id,
+      },
+    });
+  }
   render() {
     return (
       <div
@@ -45,9 +60,13 @@ class PDPRightPanel extends Component {
           {this.props.productDetails.name}
         </div>
         <div>
-          <PDPAttributes attributes={this.props.productDetails.attributes}/>
+          <PDPAttributes
+            attributes={this.props.productDetails.attributes}
+            onProductAttributeChange={this.handleProductAttributeChange}
+            attributeValues={this.state.productAttributesValues}
+          />
           <div>{this.props.productDetails.prices[0].amount}</div>
-          <PDPAddToCartButton inStock={this.props.productDetails.inStock}/>
+          <PDPAddToCartButton inStock={this.props.productDetails.inStock} />
           <div
             css={css`
               font-family: "Roboto";
