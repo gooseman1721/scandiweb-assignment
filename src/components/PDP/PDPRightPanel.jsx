@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { css } from "@emotion/react";
 import PDPAddToCartButton from "./PDPAddToCartButton";
 import PDPAttributes from "./PDPAttributes";
+import PDPPrice from "./PDPPrice";
 
 class PDPRightPanel extends Component {
   constructor(props) {
@@ -80,7 +81,10 @@ class PDPRightPanel extends Component {
             onProductAttributeChange={this.handleProductAttributeChange}
             attributeValues={attributeValues}
           />
-          <div>{this.props.productDetails.prices[0].amount}</div>
+          <PDPPrice
+            currencySymbol={this.props.productDetails.prices[0].currency.symbol}
+            productPrice={this.props.productDetails.prices[0].amount}
+          />
           <PDPAddToCartButton inStock={this.props.productDetails.inStock} />
           <div
             css={css`
@@ -92,6 +96,7 @@ class PDPRightPanel extends Component {
               color: #1d1f22;
               max-height: 280px;
               overflow-y: auto;
+              margin-top: 40px;
             `}
             dangerouslySetInnerHTML={{
               __html: this.props.productDetails.description,
