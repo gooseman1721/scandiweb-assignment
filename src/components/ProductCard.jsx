@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 
 import { get_item_details } from "../GraphQLEndpoint";
 import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
+import { ReactComponent as CartLogo } from "../svgs/Empty Cart.svg";
 
 const quickAddToCartStyle = css`
   position: relative;
@@ -20,6 +21,15 @@ const quickAddToCartStyle = css`
   transition: 0.1s;
   opacity: 0;
   z-index: 4;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  &:hover {
+    cursor: pointer;
+    transition: 100ms;
+    background-color: #89eba3;
+  }
 `;
 
 class ProductCard extends Component {
@@ -109,6 +119,9 @@ class ProductCard extends Component {
                 font-size: 24px;
                 line-height: 160%;
                 color: #8d8f9a;
+                background-color: #e4e0e08f;
+                width: 386px;
+                text-align: center;
               `}
             >
               OUT OF STOCK
@@ -156,7 +169,20 @@ class ProductCard extends Component {
             {this.props.productData.prices[0].amount}
           </div>
         </div>
-        <div css={quickAddToCartStyle} data-comp="quickAddToCart"></div>
+        {this.props.productData.inStock === true && (
+          <div
+            css={quickAddToCartStyle}
+            data-comp="quickAddToCart"
+            title="Quick add to cart"
+            onClick={(event) => {
+              event.stopPropagation();
+              console.log("quick add to cart clicked");
+            }}
+          >
+            <CartLogo />
+          </div>
+        )}
+
         {this.state.cardClicked && this.state.detailsFetched && (
           <Navigate to={`product/${this.props.productData.id}`} />
         )}
