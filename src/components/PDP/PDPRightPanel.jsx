@@ -24,6 +24,21 @@ class PDPRightPanel extends Component {
     });
   }
   render() {
+    const defaultAttributeValues = () => {
+      const attributeObj = {};
+      this.props.productDetails.attributes.forEach((element) => {
+        attributeObj[element.id] = element.items[0].id;
+      });
+      return attributeObj;
+    };
+    const attributeValues =
+      Object.keys(this.state.productAttributesValues).length === 0
+        ? defaultAttributeValues()
+        : {
+            ...defaultAttributeValues(),
+            ...this.state.productAttributesValues,
+          };
+
     return (
       <div
         css={css`
@@ -63,7 +78,7 @@ class PDPRightPanel extends Component {
           <PDPAttributes
             attributes={this.props.productDetails.attributes}
             onProductAttributeChange={this.handleProductAttributeChange}
-            attributeValues={this.state.productAttributesValues}
+            attributeValues={attributeValues}
           />
           <div>{this.props.productDetails.prices[0].amount}</div>
           <PDPAddToCartButton inStock={this.props.productDetails.inStock} />

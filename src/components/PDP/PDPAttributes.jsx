@@ -91,17 +91,8 @@ export default class PDPAttributes extends Component {
   }
 
   render() {
-    const defaultAttributeValues = () => {
-      const attributeObj = {};
-      this.props.attributes.forEach((element) => {
-        attributeObj[element.id] = element.items[0].id;
-      });
-      return attributeObj;
-    };
-    const attributeValues =
-      Object.keys(this.props.attributeValues).length === 0
-        ? defaultAttributeValues()
-        : { ...defaultAttributeValues(), ...this.props.attributeValues };
+
+    const attributeValues = this.props.attributeValues;
 
     return (
       <>
