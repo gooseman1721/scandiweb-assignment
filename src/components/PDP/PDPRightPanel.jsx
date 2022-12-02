@@ -4,6 +4,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { css } from "@emotion/react";
+import {
+  addItem,
+  increaseItemCount,
+  addProductToCart,
+} from "../../features/product_data/cartSlice";
+
 import PDPAddToCartButton from "./PDPAddToCartButton";
 import PDPAttributes from "./PDPAttributes";
 import PDPPrice from "./PDPPrice";
@@ -13,7 +19,18 @@ class PDPRightPanel extends Component {
     super(props);
     this.handleProductAttributeChange =
       this.handleProductAttributeChange.bind(this);
-    this.state = { productAttributesValues: {} };
+    this.handleAddToCartButtonClick =
+      this.handleAddToCartButtonClick.bind(this);
+
+    const defaultAttributeValues = () => {
+      const attributeObj = {};
+      this.props.productDetails.attributes.forEach((element) => {
+        attributeObj[element.id] = element.items[0].id;
+      });
+      return attributeObj;
+    };
+
+    this.state = { productAttributesValues: defaultAttributeValues() };
   }
 
   handleProductAttributeChange(attribute_id, item_id) {
@@ -24,21 +41,16 @@ class PDPRightPanel extends Component {
       },
     });
   }
+
+  handleAddToCartButtonClick() {
+    this.props.addProductToCart({
+      product: this.props.productDetails,
+      selectedAttributes: this.state.productAttributesValues,
+    });
+  }
+
   render() {
-    const defaultAttributeValues = () => {
-      const attributeObj = {};
-      this.props.productDetails.attributes.forEach((element) => {
-        attributeObj[element.id] = element.items[0].id;
-      });
-      return attributeObj;
-    };
-    const attributeValues =
-      Object.keys(this.state.productAttributesValues).length === 0
-        ? defaultAttributeValues()
-        : {
-            ...defaultAttributeValues(),
-            ...this.state.productAttributesValues,
-          };
+    console.log(this.state.productAttributesValues);
 
     return (
       <div
@@ -79,13 +91,16 @@ class PDPRightPanel extends Component {
           <PDPAttributes
             attributes={this.props.productDetails.attributes}
             onProductAttributeChange={this.handleProductAttributeChange}
-            attributeValues={attributeValues}
+            attributeValues={this.state.productAttributesValues}
           />
           <PDPPrice
             currencySymbol={this.props.productDetails.prices[0].currency.symbol}
             productPrice={this.props.productDetails.prices[0].amount}
           />
-          <PDPAddToCartButton inStock={this.props.productDetails.inStock} />
+          <PDPAddToCartButton
+            inStock={this.props.productDetails.inStock}
+            onButtonClick={this.handleAddToCartButtonClick}
+          />
           <div
             css={css`
               font-family: "Roboto";
@@ -108,4 +123,6 @@ class PDPRightPanel extends Component {
   }
 }
 
-export default connect()(PDPRightPanel);
+export default connect(null, { addItem, increaseItemCount, addProductToCart })(
+  PDPRightPanel
+);

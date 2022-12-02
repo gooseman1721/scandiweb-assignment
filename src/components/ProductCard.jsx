@@ -8,6 +8,10 @@ import { connect } from "react-redux";
 
 import { get_item_details } from "../GraphQLEndpoint";
 import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
+import {
+  fetchProductCartDetails,
+  increaseItemCount,
+} from "../features/product_data/cartSlice";
 import { ReactComponent as CartLogo } from "../svgs/Empty Cart.svg";
 
 const quickAddToCartStyle = css`
@@ -51,6 +55,14 @@ class ProductCard extends Component {
         .then(() => this.setState({ detailsFetched: true }));
     } else {
       this.setState({ detailsFetched: true });
+    }
+  }
+
+  handleQuickAddToCartClick(product_id) {
+    if (this.props.cartContent.find((product) => product.id === product_id)) {
+      this.props.increaseItemCount(product_id);
+    } else {
+      this.props.fetchProductCartDetails(product_id);
     }
   }
 
@@ -176,7 +188,7 @@ class ProductCard extends Component {
             title="Quick add to cart"
             onClick={(event) => {
               event.stopPropagation();
-              console.log("quick add to cart clicked");
+              this.handleQuickAddToCartClick(this.props.productData.id);
             }}
           >
             <CartLogo />
@@ -194,7 +206,12 @@ class ProductCard extends Component {
 const mapStateToProps = function (state) {
   return {
     productDetailsIdList: state.productDetails.idList,
+    cartContent: state.cart.cartProducts,
   };
 };
 
-export default connect(mapStateToProps, { productDetailsCreate })(ProductCard);
+export default connect(mapStateToProps, {
+  productDetailsCreate,
+  fetchProductCartDetails,
+  increaseItemCount,
+})(ProductCard);
