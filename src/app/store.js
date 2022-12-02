@@ -15,7 +15,8 @@ export const store = configureStore({
     productCategories: productCategoriesReducer,
     productDetails: productDetailsSlice
   },
-  preloadedState: persistentStore
+  preloadedState: persistentStore,
+  
 });
 
 store.subscribe(() => {

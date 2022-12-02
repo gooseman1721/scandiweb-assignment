@@ -4,7 +4,12 @@ import React, { Component } from "react";
 
 import { css } from "@emotion/react";
 
+
 export default class PDPAddToCartButton extends Component {
+  handleClick() {
+    this.props.onButtonClick();
+  }
+
   render() {
     return (
       <div>
@@ -28,6 +33,7 @@ export default class PDPAddToCartButton extends Component {
                 cursor: pointer;
               }
             `}
+            onClick={() => this.handleClick()}
           >
             ADD TO CART
           </button>

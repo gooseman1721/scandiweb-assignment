@@ -91,17 +91,13 @@ export default class PDPAttributes extends Component {
   }
 
   render() {
-
     const attributeValues = this.props.attributeValues;
+    const attributesArray = structuredClone(this.props.attributes);
 
     return (
       <>
-        <div
-          css={css`
-            min-height: 270px;
-          `}
-        >
-          {this.props.attributes
+        <div>
+          {attributesArray
             // sorting so that attribute types appear always in the same order
             .sort((a, b) => {
               let attributeTypeA = a.type;
@@ -186,14 +182,17 @@ export default class PDPAttributes extends Component {
                           display: flex;
                           gap: 8px;
                           margin-top: 8px;
+                          margin-bottom: 24px;
                         `}
                       >
                         {attribute.items.map((item) => {
                           if (attributeValues[attribute.name] === item.id) {
                             return (
-                              <div css={selectedSwatchBorderBoxStyle}>
+                              <div
+                                css={selectedSwatchBorderBoxStyle}
+                                key={item.id}
+                              >
                                 <div
-                                  key={item.id}
                                   css={css`
                                     ${selectedSwatchAttributeStyle}
                                     background-color: ${item.value};
@@ -203,9 +202,11 @@ export default class PDPAttributes extends Component {
                             );
                           } else {
                             return (
-                              <div css={unselectedSwatchBorderBoxStyle}>
+                              <div
+                                css={unselectedSwatchBorderBoxStyle}
+                                key={item.id}
+                              >
                                 <div
-                                  key={item.id}
                                   css={css`
                                     ${unselectedSwatchAttributeStyle}
                                     background-color: ${item.value};
