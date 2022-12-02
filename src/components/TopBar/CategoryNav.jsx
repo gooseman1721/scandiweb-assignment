@@ -29,6 +29,10 @@ class CategoryNav extends Component {
       this.setState({ changePage: false });
     }
 
+    if (this.props.modalIsOpen) {
+      this.props.openCloseModal();
+    }
+
   }
 
   render() {
@@ -53,7 +57,7 @@ class CategoryNav extends Component {
               font-weight: 400;
               font-size: 16px;
               line-height: 80px;
-              height: 80px;
+              height: 78px;
               margin-left: 16px;
               margin-right: 16px;
 

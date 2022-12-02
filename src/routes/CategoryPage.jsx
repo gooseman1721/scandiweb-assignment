@@ -6,19 +6,11 @@ import { connect } from "react-redux";
 
 import { get_category_names, get_category_items } from "../GraphQLEndpoint";
 
-
 import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
 import { productListCreate } from "../features/product_data/productListSlice";
 import ProductCard from "../components/ProductCard";
 
 class CategoryPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      result: "",
-    };
-  }
-
   saveProductCategories = (productCategories) => {
     this.props.productCategoriesCreate(productCategories);
   };
@@ -27,7 +19,6 @@ class CategoryPage extends Component {
     // fetch category names first
     get_category_names()
       .then((graphql_result) => {
-        this.setState({ result: graphql_result });
         this.saveProductCategories(graphql_result);
       })
       // then fetch category items after we have a category
@@ -52,6 +43,9 @@ class CategoryPage extends Component {
       });
     }
   }
+  componentWillUnmount() {
+    console.log("Unmounting!");
+  }
   render() {
     return (
       <div
@@ -60,7 +54,6 @@ class CategoryPage extends Component {
           width: 1440px;
           height: 1433px;
           margin: auto;
-          
         `}
       >
         <div
@@ -87,6 +80,7 @@ class CategoryPage extends Component {
             margin-top: 100px;
           `}
         >
+          {/* this needs to somehow refresh the whole grid so transitions dont screw up */}
           {this.props.productList.map((data, index) => (
             <ProductCard key={index} productData={data} />
           ))}
@@ -101,6 +95,7 @@ const mapStateToProps = function (state) {
     categories: state.productCategories.categories,
     selectedCategory: state.productCategories.selectedCategory,
     productList: state.productList.products,
+    cartContent: state.cart.cartProducts,
   };
 };
 
