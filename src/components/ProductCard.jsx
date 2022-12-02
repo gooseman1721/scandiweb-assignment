@@ -34,6 +34,9 @@ const quickAddToCartStyle = css`
     transition: 100ms;
     background-color: #89eba3;
   }
+  &:active {
+    background-color: #4eaf68;
+  }
 `;
 
 class ProductCard extends Component {

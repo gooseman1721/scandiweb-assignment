@@ -32,6 +32,9 @@ export default class PDPAddToCartButton extends Component {
                 background-color: #89eba3;
                 cursor: pointer;
               }
+              &:active {
+                background-color: #4eaf68;
+              }
             `}
             onClick={() => this.handleClick()}
           >
