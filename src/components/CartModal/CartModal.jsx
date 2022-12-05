@@ -87,6 +87,18 @@ class CartModal extends Component {
             <div
               css={css`
                 flex-grow: 1;
+                overflow-y: auto;
+                ::-webkit-scrollbar {
+                  width: 10px;
+                }
+                ::-webkit-scrollbar-track {
+                  background: #e7e6e6;
+                  border-radius: 5px;
+                }
+                ::-webkit-scrollbar-thumb {
+                  background: #67676d;
+                  border-radius: 5px;
+                }
               `}
             >
               {this.props.cartContent.map((cartProduct) => (
