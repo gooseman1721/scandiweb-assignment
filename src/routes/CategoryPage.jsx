@@ -8,7 +8,7 @@ import { get_category_names, get_category_items } from "../GraphQLEndpoint";
 
 import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
 import { productListCreate } from "../features/product_data/productListSlice";
-import ProductCard from "../components/ProductCard";
+import ProductCardGrid from "../components/ProductCardGrid";
 
 class CategoryPage extends Component {
   saveProductCategories = (productCategories) => {
@@ -26,6 +26,7 @@ class CategoryPage extends Component {
         get_category_items(
           this.props.categories[this.props.selectedCategory]
         ).then((graphql_result) => {
+          console.log("inside componentDidMount");
           console.log(graphql_result);
           this.props.productListCreate(graphql_result);
         });
@@ -38,6 +39,7 @@ class CategoryPage extends Component {
       get_category_items(
         this.props.categories[this.props.selectedCategory]
       ).then((graphql_result) => {
+        console.log("inside componentDidUpdate")
         console.log(graphql_result);
         this.props.productListCreate(graphql_result);
       });
@@ -45,6 +47,8 @@ class CategoryPage extends Component {
   }
   componentWillUnmount() {
     console.log("Unmounting!");
+    // cleaning up productList, so it will be empty if component mounts later
+    this.props.productListCreate([])
   }
   render() {
     return (
@@ -70,21 +74,7 @@ class CategoryPage extends Component {
           {this.props.categories[this.props.selectedCategory][0].toUpperCase() +
             this.props.categories[this.props.selectedCategory].slice(1)}
         </div>
-        <div
-          css={css`
-            display: grid;
-            grid-template-columns: 33% 33% 33%;
-            grid-gap: 40px;
-            margin-left: 100px;
-            margin-right: 100px;
-            margin-top: 100px;
-          `}
-        >
-          {/* this needs to somehow refresh the whole grid so transitions dont screw up */}
-          {this.props.productList.map((data, index) => (
-            <ProductCard key={index} productData={data} />
-          ))}
-        </div>
+        <ProductCardGrid productList={this.props.productList} />
       </div>
     );
   }

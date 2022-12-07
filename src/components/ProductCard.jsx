@@ -76,7 +76,6 @@ class ProductCard extends Component {
           height: 444px;
           width: 386px;
           padding: auto;
-          transition: 0.1s;
           &:hover {
             box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
             transition: 0.1s;
@@ -86,15 +85,6 @@ class ProductCard extends Component {
             transition: 0.1s;
             opacity: 1;
           }
-          @keyframes fadeIn {
-            0% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
-          animation: 200ms ease-out 0s 1 fadeIn;
         `}
         onClick={() => this.handleCardClick()}
       >
@@ -112,6 +102,7 @@ class ProductCard extends Component {
           <img
             src={this.props.productData.gallery}
             alt={this.props.productData.name}
+            height={330}
             css={css`
               flex-shrink: 1;
               max-height: 100%;
