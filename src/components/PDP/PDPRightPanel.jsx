@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { css } from "@emotion/react";
 import {
   addItem,
-  increaseItemCount,
   addProductToCart,
 } from "../../features/product_data/cartSlice";
 
@@ -123,6 +122,6 @@ class PDPRightPanel extends Component {
   }
 }
 
-export default connect(null, { addItem, increaseItemCount, addProductToCart })(
+export default connect(null, { addItem, addProductToCart })(
   PDPRightPanel
 );

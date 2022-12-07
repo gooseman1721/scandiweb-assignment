@@ -2,13 +2,26 @@
 
 import React, { Component } from "react";
 import { css } from "@emotion/react";
+import { connect } from "react-redux";
+
+import {
+  increaseProductCount,
+  decreaseProductCount,
+} from "../../features/product_data/cartSlice";
 
 import CartModalLeftPanel from "./CartModalLeftPanel";
 import { ReactComponent as PlusButton } from "../../svgs/plus-square.svg";
 import { ReactComponent as MinusButton } from "../../svgs/minus-square.svg";
 
+class CartModalProduct extends Component {
+  handleIncreaseProductCount() {
+    this.props.increaseProductCount(this.props.productDetails);
+  }
 
-export default class CartModalProduct extends Component {
+  handleDecreaseProductCount() {
+    this.props.decreaseProductCount(this.props.productDetails);
+  }
+
   render() {
     return (
       <div
@@ -46,6 +59,7 @@ export default class CartModalProduct extends Component {
                   cursor: pointer;
                 }
               `}
+              onClick={() => this.handleIncreaseProductCount()}
             >
               <PlusButton />
             </button>
@@ -75,6 +89,7 @@ export default class CartModalProduct extends Component {
                   cursor: pointer;
                 }
               `}
+              onClick={() => this.handleDecreaseProductCount()}
             >
               <MinusButton />
             </button>
@@ -104,3 +119,6 @@ export default class CartModalProduct extends Component {
     );
   }
 }
+export default connect(null, { increaseProductCount, decreaseProductCount })(
+  CartModalProduct
+);

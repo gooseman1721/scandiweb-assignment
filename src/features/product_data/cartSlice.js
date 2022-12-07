@@ -53,20 +53,48 @@ const cartSlice = createSlice({
         product.cartAmount++;
       }
     },
-    increaseItemCount(state, action) {
-      const item = state.cartProducts.find(
-        (item) => item.id === action.payload
+
+    increaseProductCount(state, action) {
+      const product = state.cartProducts.find(
+        (product) =>
+          product.id === action.payload.id &&
+          (!action.payload.selectedAttributes ||
+            objectsAreTheSame(
+              product.selectedAttributes,
+              action.payload.selectedAttributes
+            ))
       );
-      item.cartAmount++;
+      product.cartAmount++;
     },
-    decreaseItemCount(state, action) {
-      const item = state.cartProducts.find(
-        (item) => item.id === action.payload
+
+    increaseProductCountQuickCart(state, action) {
+      const product = state.cartProducts.find(
+        (product) => product.id === action.payload
       );
-      item.cartAmount--;
-      if (item.cartAmount < 1) {
+      product.cartAmount++;
+    },
+
+    decreaseProductCount(state, action) {
+      const product = state.cartProducts.find(
+        (product) =>
+          product.id === action.payload.id &&
+          (!action.payload.selectedAttributes ||
+            objectsAreTheSame(
+              product.selectedAttributes,
+              action.payload.selectedAttributes
+            ))
+      );
+
+      product.cartAmount--;
+
+      if (product.cartAmount < 1) {
         state.cartProducts = state.cartProducts.filter(
-          (remaining) => remaining.id !== item.id
+          (remaining) =>
+            remaining.id !== product.id ||
+            !objectsAreTheSame(
+              remaining.selectedAttributes,
+              product.selectedAttributes
+            )
         );
       }
     },
@@ -101,8 +129,9 @@ const cartSlice = createSlice({
 export const {
   addItem,
   addProductToCart,
-  increaseItemCount,
-  decreaseItemCount,
+  increaseProductCount,
+  decreaseProductCount,
+  increaseProductCountQuickCart,
   removeItem,
 } = cartSlice.actions;
 

@@ -10,7 +10,7 @@ import { get_item_details } from "../GraphQLEndpoint";
 import { productDetailsCreate } from "../features/product_data/productDetailsSlice";
 import {
   fetchProductCartDetails,
-  increaseItemCount,
+  increaseProductCountQuickCart,
 } from "../features/product_data/cartSlice";
 import { ReactComponent as CartLogo } from "../svgs/Empty Cart.svg";
 
@@ -63,7 +63,7 @@ class ProductCard extends Component {
 
   handleQuickAddToCartClick(product_id) {
     if (this.props.cartContent.find((product) => product.id === product_id)) {
-      this.props.increaseItemCount(product_id);
+      this.props.increaseProductCountQuickCart(product_id);
     } else {
       this.props.fetchProductCartDetails(product_id);
     }
@@ -207,5 +207,5 @@ const mapStateToProps = function (state) {
 export default connect(mapStateToProps, {
   productDetailsCreate,
   fetchProductCartDetails,
-  increaseItemCount,
+  increaseProductCountQuickCart,
 })(ProductCard);
