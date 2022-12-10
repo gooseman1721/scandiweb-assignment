@@ -1,89 +1,7 @@
-/** @jsxImportSource @emotion/react */
-
 import React, { Component } from "react";
 
-import { css } from "@emotion/react";
-
-const unselectedTextAttributeStyle = css`
-  width: 63px;
-  height: 45px;
-  border: 1px solid #1d1f22;
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  //text-align: center;
-  transition: 100ms;
-  &:hover {
-    background-color: #1d1f22;
-    color: #ffffff;
-    cursor: pointer;
-    transition: 100ms;
-  }
-`;
-
-const selectedTextAttributeStyle = css`
-  width: 63px;
-  height: 45px;
-  border: 1px solid #1d1f22;
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  background-color: #1d1f22;
-  color: #ffffff;
-`;
-
-const unselectedSwatchAttributeStyle = css`
-  width: 32px;
-  height: 32px;
-  //padding: 2px;
-  &:hover {
-    cursor: pointer;
-  }
-  margin: 1px;
-  z-index: 2;
-  position: relative;
-  display: flex;
-  box-shadow: 4px 4px 10px 4px rgba(161, 166, 172, 0.384);
-`;
-
-const selectedSwatchAttributeStyle = css`
-  width: 32px;
-  height: 32px;
-  z-index: 2;
-  margin: 1px;
-  display: flex;
-  box-shadow: 4px 4px 10px 4px rgba(161, 166, 172, 0.384);
-`;
-
-const selectedSwatchBorderBoxStyle = css`
-  width: 34px;
-  height: 34px;
-  background-color: #ffffff;
-  border: 1px solid #5ece7b;
-  z-index: 1;
-  align-items: center;
-  justify-items: center;
-`;
-
-const unselectedSwatchBorderBoxStyle = css`
-  width: 34px;
-  height: 34px;
-  background-color: #ffffff11;
-  border: 1px solid #ffffff11;
-  z-index: 1;
-  align-items: center;
-  justify-items: center;
-`;
+import PDPProductAttributeText from "./PDPProductAttributeText";
+import PDPProductAttributeSwatch from "./PDPProductAttributeSwatch";
 
 export default class PDPAttributes extends Component {
   handleAttributeClick(attribute_id, item_id) {
@@ -113,117 +31,23 @@ export default class PDPAttributes extends Component {
               switch (attribute.type) {
                 case "text":
                   return (
-                    <div key={attribute.id}>
-                      <div
-                        css={css`
-                          font-family: "Roboto Condensed";
-                          font-style: normal;
-                          font-weight: 700;
-                          font-size: 18px;
-                          line-height: 18px;
-                        `}
-                      >
-                        {attribute.name.toUpperCase() + ":"}
-                      </div>
-                      <div
-                        css={css`
-                          display: flex;
-                          gap: 12px;
-                          margin-top: 8px;
-                          margin-bottom: 24px;
-                        `}
-                      >
-                        {attribute.items.map((item) => {
-                          if (attributeValues[attribute.name] === item.id) {
-                            return (
-                              <div
-                                key={item.id}
-                                css={selectedTextAttributeStyle}
-                              >
-                                {item.displayValue}
-                              </div>
-                            );
-                          } else {
-                            return (
-                              <div
-                                key={item.id}
-                                onClick={() =>
-                                  this.handleAttributeClick(
-                                    attribute.id,
-                                    item.id
-                                  )
-                                }
-                                css={unselectedTextAttributeStyle}
-                              >
-                                {item.displayValue}
-                              </div>
-                            );
-                          }
-                        })}
-                      </div>
-                    </div>
+                    <PDPProductAttributeText
+                      attribute={attribute}
+                      attributeValues={attributeValues}
+                      onProductAttributeChange={
+                        this.props.onProductAttributeChange
+                      }
+                    />
                   );
                 case "swatch":
                   return (
-                    <div key={attribute.id}>
-                      <div
-                        css={css`
-                          font-family: "Roboto Condensed";
-                          font-style: normal;
-                          font-weight: 700;
-                          font-size: 18px;
-                          line-height: 18px;
-                        `}
-                      >
-                        {attribute.name.toUpperCase() + ":"}
-                      </div>
-                      <div
-                        css={css`
-                          display: flex;
-                          gap: 8px;
-                          margin-top: 8px;
-                          margin-bottom: 24px;
-                        `}
-                      >
-                        {attribute.items.map((item) => {
-                          if (attributeValues[attribute.name] === item.id) {
-                            return (
-                              <div
-                                css={selectedSwatchBorderBoxStyle}
-                                key={item.id}
-                              >
-                                <div
-                                  css={css`
-                                    ${selectedSwatchAttributeStyle}
-                                    background-color: ${item.value};
-                                  `}
-                                ></div>
-                              </div>
-                            );
-                          } else {
-                            return (
-                              <div
-                                css={unselectedSwatchBorderBoxStyle}
-                                key={item.id}
-                              >
-                                <div
-                                  css={css`
-                                    ${unselectedSwatchAttributeStyle}
-                                    background-color: ${item.value};
-                                  `}
-                                  onClick={() =>
-                                    this.handleAttributeClick(
-                                      attribute.id,
-                                      item.id
-                                    )
-                                  }
-                                ></div>
-                              </div>
-                            );
-                          }
-                        })}
-                      </div>
-                    </div>
+                    <PDPProductAttributeSwatch
+                      attribute={attribute}
+                      attributeValues={attributeValues}
+                      onProductAttributeChange={
+                        this.props.onProductAttributeChange
+                      }
+                    />
                   );
                 default:
                   return <></>;
