@@ -122,6 +122,4 @@ class PDPRightPanel extends Component {
   }
 }
 
-export default connect(null, { addItem, addProductToCart })(
-  PDPRightPanel
-);
+export default connect(null, { addItem, addProductToCart })(PDPRightPanel);

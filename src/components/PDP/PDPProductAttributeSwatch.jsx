@@ -62,6 +62,7 @@ const unselectedSwatchBorderBoxStyle = css`
   justify-items: center;
 `;
 
+
 export default class PDPProductAttributeSwatch extends Component {
   handleAttributeClick(attribute_id, item_id) {
     this.props.onProductAttributeChange(attribute_id, item_id);
