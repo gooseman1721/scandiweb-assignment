@@ -11,6 +11,7 @@ const viewBagStyle = css`
   height: 43px;
   border: 1px solid #1d1f22;
   background: #ffffff;
+  color: #1d1f22;
   font-family: "Raleway";
   font-style: normal;
   font-weight: 600;
@@ -52,6 +53,19 @@ const checkOutButton = css`
 
 class CartModal extends Component {
   render() {
+    const cartProductAmount = this.props.cartContent.reduce(
+      (cartValue, cartProduct) => (cartValue += cartProduct.cartAmount),
+      0
+    );
+
+    const cartProductPriceSum = this.props.cartContent
+      .reduce(
+        (cartValue, cartProduct) =>
+          (cartValue += cartProduct.prices[0].amount * cartProduct.cartAmount),
+        0
+      )
+      .toFixed(2);
+
     if (this.props.isOpen) {
       return createPortal(
         <div
@@ -67,6 +81,7 @@ class CartModal extends Component {
             width: 100%;
             background-color: rgba(57, 55, 72, 0.22);
             z-index: 1000;
+            color: #1d1f22;
           `}
         >
           <div
@@ -82,8 +97,32 @@ class CartModal extends Component {
               justify-content: space-between;
             `}
           >
-            CartModal
-            {document.getElementById("root").scrollHeight}
+            <div
+              css={css`
+                font-family: "Raleway";
+                font-style: normal;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 160%;
+                margin-top: 32px;
+                margin-left: 16px;
+              `}
+            >
+              My bag,{" "}
+              <span
+                css={css`
+                  font-family: "Raleway";
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 16px;
+                  line-height: 160%;
+                  font-feature-settings: "lnum" 1;
+                `}
+              >
+                {cartProductAmount} item{cartProductAmount === 1 ? "" : "s"}
+              </span>
+            </div>
+
             <div
               css={css`
                 flex-grow: 1;
@@ -122,7 +161,6 @@ class CartModal extends Component {
                   font-weight: 500;
                   font-size: 16px;
                   line-height: 18px;
-                  color: #1d1f22;
                 `}
               >
                 Total
@@ -135,19 +173,11 @@ class CartModal extends Component {
                   font-size: 16px;
                   line-height: 160%;
                   font-feature-settings: "lnum" 1;
-                  color: #1d1f22;
                   transform: translate(0px, -4px);
                 `}
               >
                 symbol
-                {this.props.cartContent
-                  .reduce(
-                    (cartValue, cartProduct) =>
-                      (cartValue +=
-                        cartProduct.prices[0].amount * cartProduct.cartAmount),
-                    0
-                  )
-                  .toFixed(2)}
+                {cartProductPriceSum}
               </div>
             </div>
             <div

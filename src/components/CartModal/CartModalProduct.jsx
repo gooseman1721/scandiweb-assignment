@@ -30,7 +30,7 @@ class CartModalProduct extends Component {
           margin-left: 16px;
           margin-right: 16px;
           margin-top: 40px;
-          height: 190px;
+          min-height: 100px;
         `}
       >
         <CartModalLeftPanel productDetails={this.props.productDetails} />
@@ -45,7 +45,7 @@ class CartModalProduct extends Component {
               flex-direction: column;
               justify-content: space-between;
               align-items: center;
-              max-height: 190px;
+              min-height: 100px;
             `}
           >
             <button
