@@ -68,49 +68,40 @@ export default class PDPProductAttributeSwatch extends Component {
   }
 
   render() {
-    const attribute = this.props.attribute;
-    const attributeValues = this.props.attributeValues;
+    const { attribute, attributeValues } = this.props;
 
     return (
       <div key={attribute.id}>
         <div css={attributeNameStyle}>{attribute.name.toUpperCase() + ":"}</div>
         <div css={attributesContainerStyle}>
           {attribute.items.map((selectedAttribute) => {
-            if (attributeValues[attribute.name] === selectedAttribute.id) {
-              return (
+            const selected =
+              attributeValues[attribute.name] === selectedAttribute.id;
+            const swatchBorderBoxStyle = selected
+              ? selectedSwatchBorderBoxStyle
+              : unselectedSwatchBorderBoxStyle;
+            const swatchAttributeStyle = selected
+              ? selectedSwatchAttributeStyle
+              : unselectedSwatchAttributeStyle;
+
+            return (
+              <div key={selectedAttribute.id} css={swatchBorderBoxStyle}>
                 <div
-                  key={selectedAttribute.id}
-                  css={selectedSwatchBorderBoxStyle}
-                >
-                  <div
-                    css={css`
-                      ${selectedSwatchAttributeStyle}
-                      background-color: ${selectedAttribute.value};
-                    `}
-                  ></div>
-                </div>
-              );
-            } else {
-              return (
-                <div
-                  key={selectedAttribute.id}
-                  css={unselectedSwatchBorderBoxStyle}
-                >
-                  <div
-                    css={css`
-                      ${unselectedSwatchAttributeStyle}
-                      background-color: ${selectedAttribute.value};
-                    `}
-                    onClick={() =>
-                      this.handleAttributeClick(
-                        attribute.id,
-                        selectedAttribute.id
-                      )
-                    }
-                  ></div>
-                </div>
-              );
-            }
+                  css={css`
+                    ${swatchAttributeStyle}
+                    background-color: ${selectedAttribute.value};
+                  `}
+                  onClick={() =>
+                    selected
+                      ? null
+                      : this.handleAttributeClick(
+                          attribute.id,
+                          selectedAttribute.id
+                        )
+                  }
+                ></div>
+              </div>
+            );
           })}
         </div>
       </div>

@@ -62,39 +62,35 @@ export default class PDPProductAttributeText extends Component {
   }
 
   render() {
-    const attribute = this.props.attribute;
-    const attributeValues = this.props.attributeValues;
+    const { attribute, attributeValues } = this.props;
 
     return (
       <div key={attribute.id}>
         <div css={attributeNameStyle}>{attribute.name.toUpperCase() + ":"}</div>
         <div css={attributesContainerStyle}>
           {attribute.items.map((selectedAttribute) => {
-            if (attributeValues[attribute.name] === selectedAttribute.id) {
-              return (
-                <div
-                  key={selectedAttribute.id}
-                  css={selectedTextAttributeStyle}
-                >
-                  {selectedAttribute.displayValue}
-                </div>
-              );
-            } else {
-              return (
-                <div
-                  key={selectedAttribute.id}
-                  css={unselectedTextAttributeStyle}
-                  onClick={() =>
-                    this.handleAttributeClick(
-                      attribute.id,
-                      selectedAttribute.id
-                    )
-                  }
-                >
-                  {selectedAttribute.displayValue}
-                </div>
-              );
-            }
+            const selected =
+              attributeValues[attribute.name] === selectedAttribute.id;
+            const textAttributeStyle = selected
+              ? selectedTextAttributeStyle
+              : unselectedTextAttributeStyle;
+
+            return (
+              <div
+                key={selectedAttribute.id}
+                css={textAttributeStyle}
+                onClick={() =>
+                  selected
+                    ? null
+                    : this.handleAttributeClick(
+                        attribute.id,
+                        selectedAttribute.id
+                      )
+                }
+              >
+                {selectedAttribute.displayValue}
+              </div>
+            );
           })}
         </div>
       </div>
