@@ -37,7 +37,7 @@ export default class CartModalLeftPanel extends Component {
             font-feature-settings: "lnum" 1;
           `}
         >
-          {this.props.productDetails.prices[0].currency.symbol}{" "}
+          {this.props.productDetails.prices[0].currency.symbol}
           {this.props.productDetails.prices[0].amount}
         </div>
 

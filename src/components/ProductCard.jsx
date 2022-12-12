@@ -12,7 +12,7 @@ import {
   fetchProductCartDetails,
   increaseProductCountQuickCart,
 } from "../features/product_data/cartSlice";
-import { ReactComponent as CartLogo } from "../svgs/Empty Cart.svg";
+import { ReactComponent as CartLogo } from "../svgs/empty-cart-white.svg";
 
 const quickAddToCartStyle = css`
   position: relative;

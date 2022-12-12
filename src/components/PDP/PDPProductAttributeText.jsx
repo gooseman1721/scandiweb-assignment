@@ -30,7 +30,7 @@ const unselectedTextAttributeStyle = css`
   align-items: center;
   justify-content: center;
   display: flex;
-  //text-align: center;
+  text-align: center;
   transition: 100ms;
   &:hover {
     background-color: #1d1f22;
@@ -51,6 +51,7 @@ const selectedTextAttributeStyle = css`
   line-height: 18px;
   align-items: center;
   justify-content: center;
+  text-align: center;
   display: flex;
   background-color: #1d1f22;
   color: #ffffff;

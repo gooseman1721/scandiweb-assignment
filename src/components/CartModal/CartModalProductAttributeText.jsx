@@ -18,6 +18,7 @@ const attributesContainerStyle = css`
   gap: 12px;
   margin-top: 8px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 `;
 const unselectedTextAttributeStyle = css`
   //width: 24px;

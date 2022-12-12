@@ -18,6 +18,7 @@ const attributesContainerStyle = css`
   gap: 8px;
   margin-top: 8px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 `;
 
 const unselectedSwatchAttributeStyle = css`
