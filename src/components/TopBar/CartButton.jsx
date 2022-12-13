@@ -31,7 +31,17 @@ const cartCountCircleStyle = css`
 class CartButton extends Component {
   render() {
     return (
-      <div>
+      <div
+        css={css`
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          width: 20px;
+          &:hover {
+            cursor: pointer;
+          }
+        `}
+      >
         <div
           css={css`
             z-index: 2;
