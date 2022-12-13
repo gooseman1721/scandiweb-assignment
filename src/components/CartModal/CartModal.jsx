@@ -52,6 +52,9 @@ const checkOutButton = css`
 `;
 
 class CartModal extends Component {
+  handleCartClick() {
+    this.props.openCloseModal();
+  }
   render() {
     const cartProductAmount = this.props.cartContent.reduce(
       (cartValue, cartProduct) => (cartValue += cartProduct.cartAmount),
@@ -61,7 +64,10 @@ class CartModal extends Component {
     const cartProductPriceSum = this.props.cartContent
       .reduce(
         (cartValue, cartProduct) =>
-          (cartValue += cartProduct.prices[0].amount * cartProduct.cartAmount),
+          (cartValue +=
+            cartProduct.prices.find((price) => {
+              return price.currency.label === this.props.currency.label;
+            }).amount * cartProduct.cartAmount),
         0
       )
       .toFixed(2);
@@ -83,11 +89,12 @@ class CartModal extends Component {
             z-index: 1000;
             color: #1d1f22;
           `}
+          onClick={() => this.handleCartClick()}
         >
           <div
             css={css`
               position: absolute;
-              right: 73px;
+              right: 163px;
               width: 325px;
               height: 677px;
               z-index: 1000;
@@ -96,6 +103,7 @@ class CartModal extends Component {
               flex-direction: column;
               justify-content: space-between;
             `}
+            onClick={(event) => {event.stopPropagation()}}
           >
             <div
               css={css`
@@ -176,7 +184,7 @@ class CartModal extends Component {
                   transform: translate(0px, -4px);
                 `}
               >
-                symbol
+                {this.props.currency.symbol}
                 {cartProductPriceSum}
               </div>
             </div>
@@ -204,6 +212,7 @@ class CartModal extends Component {
 const mapStateToProps = function (state) {
   return {
     cartContent: state.cart.cartProducts,
+    currency: state.currencies.selectedCurrency,
   };
 };
 

@@ -93,8 +93,12 @@ class PDPRightPanel extends Component {
             attributeValues={this.state.productAttributesValues}
           />
           <PDPPrice
-            currencySymbol={this.props.productDetails.prices[0].currency.symbol}
-            productPrice={this.props.productDetails.prices[0].amount}
+            currencySymbol={this.props.currency.symbol}
+            productPrice={
+              this.props.productDetails.prices.find((price) => {
+                return price.currency.label === this.props.currency.label;
+              }).amount
+            }
           />
           <PDPAddToCartButton
             inStock={this.props.productDetails.inStock}
@@ -122,4 +126,12 @@ class PDPRightPanel extends Component {
   }
 }
 
-export default connect(null, { addItem, addProductToCart })(PDPRightPanel);
+const mapStateToProps = function (state) {
+  return {
+    currency: state.currencies.selectedCurrency,
+  };
+};
+
+export default connect(mapStateToProps, { addItem, addProductToCart })(
+  PDPRightPanel
+);

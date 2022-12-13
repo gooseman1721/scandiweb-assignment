@@ -171,8 +171,12 @@ class ProductCard extends Component {
               `}
             `}
           >
-            {this.props.productData.prices[0].currency.symbol}
-            {this.props.productData.prices[0].amount}
+            {this.props.currency.symbol}
+            {
+              this.props.productData.prices.find((price) => {
+                return price.currency.label === this.props.currency.label;
+              }).amount
+            }
           </div>
         </div>
         {this.props.productData.inStock === true && (
@@ -201,6 +205,7 @@ const mapStateToProps = function (state) {
   return {
     productDetailsIdList: state.productDetails.idList,
     cartContent: state.cart.cartProducts,
+    currency: state.currencies.selectedCurrency,
   };
 };
 

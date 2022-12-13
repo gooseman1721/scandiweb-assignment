@@ -2,16 +2,18 @@
 
 import React, { Component } from "react";
 import { css } from "@emotion/react";
+import { connect } from "react-redux";
+
 import CartModalProductAttributes from "./CartModalProductAttributes";
 
-export default class CartModalLeftPanel extends Component {
+class CartModalLeftPanel extends Component {
   render() {
     return (
       <div
         css={css`
           width: 136px;
           //max-height: 200px;
-         // overflow-y: scroll;
+          // overflow-y: scroll;
         `}
       >
         <div
@@ -37,8 +39,12 @@ export default class CartModalLeftPanel extends Component {
             font-feature-settings: "lnum" 1;
           `}
         >
-          {this.props.productDetails.prices[0].currency.symbol}
-          {this.props.productDetails.prices[0].amount}
+          {this.props.currency.symbol}
+          {
+            this.props.productDetails.prices.find((price) => {
+              return price.currency.label === this.props.currency.label;
+            }).amount
+          }
         </div>
 
         <CartModalProductAttributes
@@ -49,3 +55,12 @@ export default class CartModalLeftPanel extends Component {
     );
   }
 }
+
+const mapStateToProps = function (state) {
+  return {
+    currency: state.currencies.selectedCurrency,
+  };
+};
+
+export default connect(mapStateToProps)(CartModalLeftPanel);
+
