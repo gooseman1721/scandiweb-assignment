@@ -107,12 +107,26 @@ async function get_item_details(product_id) {
   }
 }
 
+async function get_currencies() {
+  try {
+    const currencyFields = ["label", "symbol"];
+
+    const query = new Query("currencies", true).addFieldList(currencyFields);
+
+    const queryResult = await client.post(query);
+    return queryResult.currencies;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export {
   graphql_test,
   get_category_names,
   get_items,
   get_category_items,
   get_item_details,
+  get_currencies,
 };
 
 // export default class GraphQLEndpoint extends Component {

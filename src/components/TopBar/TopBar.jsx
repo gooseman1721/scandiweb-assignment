@@ -9,9 +9,9 @@ import CartModal from "../CartModal/CartModal";
 export default class TopBar extends Component {
   constructor(props) {
     super(props);
-    this.handleCartButtonClick = this.handleCartButtonClick.bind(this)
+    this.handleCartButtonClick = this.handleCartButtonClick.bind(this);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
     };
   }
 
@@ -32,19 +32,28 @@ export default class TopBar extends Component {
           flex-direction: row;
           justify-content: space-between;
           z-index: 2000;
-
         `}
       >
-        <CategoryNav openCloseModal={this.handleCartButtonClick} modalIsOpen={this.state.modalOpen} />
+        <CategoryNav
+          openCloseModal={this.handleCartButtonClick}
+          modalIsOpen={this.state.modalOpen}
+        />
         <Logo />
-        <div 
+        <ActionsNav openCloseModal={this.handleCartButtonClick} />
+        <div
           css={css`
-            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            //flex-grow: 1;
             margin-right: 100px;
           `}
         >
-          <ActionsNav openCloseModal={this.handleCartButtonClick} />
-          <CartModal isOpen={this.state.modalOpen} />
+          {/* <ActionsNav openCloseModal={this.handleCartButtonClick} /> */}
+
+          <CartModal
+            isOpen={this.state.modalOpen}
+            openCloseModal={this.handleCartButtonClick}
+          />
         </div>
       </div>
     );
