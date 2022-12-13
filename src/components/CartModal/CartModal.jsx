@@ -3,7 +3,9 @@
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { css } from "@emotion/react";
+
 import CartModalProduct from "./CartModalProduct";
 
 const viewBagStyle = css`
@@ -52,9 +54,19 @@ const checkOutButton = css`
 `;
 
 class CartModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { viewBagClicked: false };
+  }
+
   handleCartClick() {
     this.props.openCloseModal();
   }
+
+  handleViewBagClick() {
+    this.setState({ viewBagClicked: true });
+  }
+
   render() {
     const cartProductAmount = this.props.cartContent.reduce(
       (cartValue, cartProduct) => (cartValue += cartProduct.cartAmount),
@@ -103,7 +115,9 @@ class CartModal extends Component {
               flex-direction: column;
               justify-content: space-between;
             `}
-            onClick={(event) => {event.stopPropagation()}}
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
           >
             <div
               css={css`
@@ -198,8 +212,20 @@ class CartModal extends Component {
                 margin-right: 16.5px;
               `}
             >
-              <button css={viewBagStyle}>VIEW BAG</button>
+              <button
+                css={viewBagStyle}
+                onClick={() => this.handleViewBagClick()}
+              >
+                VIEW BAG
+              </button>
               <button css={checkOutButton}>CHECK OUT</button>
+              {this.state.viewBagClicked && (
+                <>
+                  {this.setState({ viewBagClicked: false })}
+                  {this.props.isOpen ? this.props.openCloseModal() : null}
+                  <Navigate to={`cart/`} />
+                </>
+              )}
             </div>
           </div>
         </div>,

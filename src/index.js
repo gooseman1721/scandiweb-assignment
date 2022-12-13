@@ -13,6 +13,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import CategoryPage from "./routes/CategoryPage";
 import ProductDisplayPage from "./routes/ProductDisplayPage";
+import CartPage from "./routes/CartPage";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path: "product/:productId",
         element: <ProductDisplayPage />,
       },
+      {
+        path: "cart/",
+        element: <CartPage/>
+      }
     ],
   },
 ]);
