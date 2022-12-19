@@ -1,55 +1,32 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { Component } from "react";
-import { css } from "@emotion/react";
 import { connect } from "react-redux";
 
-import CartModalProductAttributes from "./CartModalProductAttributes";
+import CartModalProductAttributes from "../CartProductAttributes";
 
 class CartModalLeftPanel extends Component {
   render() {
+    const { currency, productDetails, attributesStyling } = this.props;
+    const { containerStyle, brandNameStyle, productNameStyle, priceStyle } =
+      this.props.styling;
     return (
-      <div
-        css={css`
-          width: 136px;
-          //max-height: 200px;
-          // overflow-y: scroll;
-        `}
-      >
-        <div
-          css={css`
-            font-family: "Raleway";
-            font-style: normal;
-            font-weight: 300;
-            font-size: 16px;
-            line-height: 160%;
-          `}
-        >
-          {this.props.productDetails.brand}
-
-          {this.props.productDetails.name}
-        </div>
-        <div
-          css={css`
-            font-family: "Raleway";
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 160%;
-            font-feature-settings: "lnum" 1;
-          `}
-        >
-          {this.props.currency.symbol}
+      <div css={containerStyle}>
+        <div css={brandNameStyle}>{productDetails.brand}</div>
+        <div css={productNameStyle}>{productDetails.name}</div>
+        <div css={priceStyle}>
+          {currency.symbol}
           {
-            this.props.productDetails.prices.find((price) => {
-              return price.currency.label === this.props.currency.label;
+            productDetails.prices.find((price) => {
+              return price.currency.label === currency.label;
             }).amount
           }
         </div>
 
         <CartModalProductAttributes
-          attributes={this.props.productDetails.attributes}
-          attributeValues={this.props.productDetails.selectedAttributes}
+          attributes={productDetails.attributes}
+          attributeValues={productDetails.selectedAttributes}
+          attributesStyling={attributesStyling}
         />
       </div>
     );
@@ -63,4 +40,3 @@ const mapStateToProps = function (state) {
 };
 
 export default connect(mapStateToProps)(CartModalLeftPanel);
-

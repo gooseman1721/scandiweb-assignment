@@ -19,7 +19,6 @@ export default class ActionsNav extends Component {
           justify-content: right;
           align-items: center;
           flex-grow: 1;
-          margin-right: 100px;
           height: 78px;
           gap: 20px;
         `}

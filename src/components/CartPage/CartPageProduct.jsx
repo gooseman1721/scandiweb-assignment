@@ -3,8 +3,8 @@
 import React, { Component } from "react";
 import { css } from "@emotion/react";
 
-import CartModalLeftPanel from "./CartModalLeftPanel";
-import CartModalRightPanel from "./CartModalRightPanel";
+import CartModalLeftPanel from "../CartModal/CartModalLeftPanel";
+import CartModalRightPanel from "../CartModal/CartModalRightPanel";
 
 const rightPanelStyling = {
   containerStyle: css`
@@ -15,7 +15,7 @@ const rightPanelStyling = {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    min-height: 200px;
+    min-height: 100px;
   `,
   plusMinusButtonsStyle: css`
     height: 24px;
@@ -33,13 +33,13 @@ const rightPanelStyling = {
     font-family: "Raleway";
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 24px;
     line-height: 160%;
     color: #1d1f22;
   `,
   imageContainerStyle: css`
-    height: 190px;
-    width: 121px;
+    height: 288px;
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,80 +56,81 @@ const rightPanelStyling = {
 
 const leftPanelStyling = {
   containerStyle: css`
-    width: 136px;
+    width: 500px;
   `,
   brandNameStyle: css`
     font-family: "Raleway";
     font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1d1f22;
   `,
   productNameStyle: css`
+    margin-top: 16px;
     font-family: "Raleway";
     font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 160%;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1d1f22;
   `,
   priceStyle: css`
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-family: "Raleway";
     font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 160%;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
     font-feature-settings: "lnum" 1;
   `,
 };
 
 const attributesStyling = {
   attributeNameStyle: css`
-    font-family: "Raleway";
+    font-family: "Roboto Condensed";
     font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
     font-feature-settings: "lnum" 1;
   `,
   attributesContainerStyleText: css`
     display: flex;
-    gap: 12px;
+    gap: 8px;
     margin-top: 8px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+    margin-bottom: 24px;
   `,
   attributesContainerStyleSwatch: css`
     display: flex;
-    gap: 7px;
+    gap: 8px;
     margin-top: 8px;
     margin-bottom: 24px;
-    flex-wrap: wrap;
   `,
   unselectedSwatchAttributeStyle: css`
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
     margin: 1px;
     z-index: 2;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-items: center;
     box-shadow: 1px 4px 10px 4px rgba(161, 166, 172, 0.384);
   `,
   selectedSwatchAttributeStyle: css`
-    width: 16px;
-    height: 16px;
-    margin: 1px;
+    width: 32px;
+    height: 32px;
     background-color: #ffffff;
     z-index: 1;
+    margin: 1px;
     align-items: center;
     justify-items: center;
     box-shadow: 1px 4px 10px 4px rgba(161, 166, 172, 0.384);
   `,
   unselectedSwatchBorderBoxStyle: css`
-    width: 16px;
-    height: 16px;
-    margin: 1px;
+    width: 34px;
+    height: 34px;
     background-color: #ffffff11;
     border: 1px solid #ffffff11;
     z-index: 1;
@@ -137,9 +138,8 @@ const attributesStyling = {
     justify-items: center;
   `,
   selectedSwatchBorderBoxStyle: css`
-    width: 18px;
-    height: 18px;
-    margin: 1px;
+    width: 34px;
+    height: 34px;
     background-color: #ffffff;
     border: 1px solid #5ece7b;
     z-index: 1;
@@ -149,27 +149,30 @@ const attributesStyling = {
   unselectedTextAttributeStyle: css`
     padding-left: 3px;
     padding-right: 3px;
-    height: 24px;
+    width: 63px;
+    height: 45px;
     border: 1px solid #1d1f22;
     font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 160%;
+    font-size: 16px;
+    line-height: 18px;
     align-items: center;
     justify-content: center;
+    text-align: center;
     display: flex;
   `,
   selectedTextAttributeStyle: css`
     padding-left: 3px;
     padding-right: 3px;
-    height: 24px;
+    width: 63px;
+    height: 45px;
     border: 1px solid #1d1f22;
     font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 160%;
+    font-size: 16px;
+    line-height: 18px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -178,25 +181,45 @@ const attributesStyling = {
   `,
 };
 
-const containerStyle = css`
-  display: flex;
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-top: 40px;
-  min-height: 100px;
-`;
-
-export default class CartModalProduct extends Component {
+export default class CartProduct extends Component {
   render() {
     return (
-      <div css={containerStyle}>
-        <CartModalLeftPanel
-          productDetails={this.props.productDetails}
-          styling={leftPanelStyling}
-          attributesStyling={attributesStyling}
-        />
-        <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} />
-      </div>
+      <>
+        {this.props.isFirst && (
+          <hr
+            css={css`
+              background: #e5e5e5;
+              height: 1px;
+              border-style: none;
+              margin-top: 24px;
+              margin-bottom: 24px;
+            `}
+          ></hr>
+        )}
+        <div
+          css={css`
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          `}
+        >
+          <CartModalLeftPanel
+            productDetails={this.props.productDetails}
+            styling={leftPanelStyling}
+            attributesStyling={attributesStyling}
+          />
+          <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} />
+        </div>
+        <hr
+          css={css`
+            background: #e5e5e5;
+            height: 1px;
+            border-style: none;
+            margin-top: 24px;
+            margin-bottom: 24px;
+          `}
+        ></hr>
+      </>
     );
   }
 }

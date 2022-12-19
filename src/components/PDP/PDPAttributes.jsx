@@ -107,7 +107,6 @@ export default class PDPAttributes extends Component {
   render() {
     const { attributeValues, attributes, onProductAttributeChange } =
       this.props;
-
     const attributesArray = structuredClone(attributes);
 
     return (
