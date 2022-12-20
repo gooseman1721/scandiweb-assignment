@@ -46,11 +46,13 @@ const rightPanelStyling = {
     margin-left: 8px;
     margin-top: auto;
     margin-bottom: auto;
+    z-index: 1;
   `,
   imageStyle: css`
     height: 100%;
     width: 100%;
     object-fit: scale-down;
+    z-index: 1;
   `,
 };
 
@@ -208,7 +210,12 @@ export default class CartProduct extends Component {
             styling={leftPanelStyling}
             attributesStyling={attributesStyling}
           />
-          <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} bigButtons={true} />
+          <CartModalRightPanel
+            productDetails={this.props.productDetails}
+            styling={rightPanelStyling}
+            bigButtons={true}
+            imageSwitcher={true}
+          />
         </div>
         <hr
           css={css`
