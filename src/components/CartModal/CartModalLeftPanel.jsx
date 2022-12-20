@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import CartModalProductAttributes from "../CartProductAttributes";
+import CartProductAttributes from "../CartProductAttributes";
 
 class CartModalLeftPanel extends Component {
   render() {
@@ -23,7 +23,7 @@ class CartModalLeftPanel extends Component {
           }
         </div>
 
-        <CartModalProductAttributes
+        <CartProductAttributes
           attributes={productDetails.attributes}
           attributeValues={productDetails.selectedAttributes}
           attributesStyling={attributesStyling}
