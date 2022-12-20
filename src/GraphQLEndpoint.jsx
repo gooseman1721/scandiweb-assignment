@@ -2,22 +2,6 @@ import { client, Query, Field } from "@tilework/opus";
 
 client.setEndpoint("http://localhost:4000/");
 
-async function graphql_test() {
-  try {
-    const fields = ["name", "description"];
-    const testQuery = new Query("product", true)
-      .addArgument("id", "String!", "ps-5")
-      .addFieldList(fields);
-
-    const queryResult = await client.post(testQuery);
-    //const data = queryResult.data;
-
-    return queryResult;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 async function get_category_names() {
   try {
     const query = new Query("categories", true).addField(
@@ -121,17 +105,9 @@ async function get_currencies() {
 }
 
 export {
-  graphql_test,
   get_category_names,
   get_items,
   get_category_items,
   get_item_details,
   get_currencies,
 };
-
-// export default class GraphQLEndpoint extends Component {
-
-//   render() {
-//     return <div>GraphQLEndpoint</div>;
-//   }
-// }
