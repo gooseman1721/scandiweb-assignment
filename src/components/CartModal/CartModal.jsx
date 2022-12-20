@@ -63,7 +63,6 @@ const portalStyle = css`
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(${document.getElementById("root").scrollHeight}px - 78px);
   width: 100%;
   background-color: rgba(57, 55, 72, 0.22);
   z-index: 1000;
@@ -173,7 +172,15 @@ class CartModal extends Component {
 
     if (this.props.isOpen) {
       return createPortal(
-        <div css={portalStyle} onClick={() => this.handleCartClick()}>
+        <div
+          css={portalStyle}
+          style={{
+            height: `calc(${
+              document.getElementById("root").scrollHeight
+            }px - 78px)`,
+          }}
+          onClick={() => this.handleCartClick()}
+        >
           <div
             css={modalStyle}
             onClick={(event) => {
