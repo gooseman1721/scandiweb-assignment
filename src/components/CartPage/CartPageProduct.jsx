@@ -183,28 +183,26 @@ const attributesStyling = {
   `,
 };
 
+const spacerLineStyle = css`
+  background: #e5e5e5;
+  height: 1px;
+  border-style: none;
+  margin-top: 24px;
+  margin-bottom: 24px;
+`;
+
+const productContainer = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export default class CartProduct extends Component {
   render() {
     return (
       <>
-        {this.props.isFirst && (
-          <hr
-            css={css`
-              background: #e5e5e5;
-              height: 1px;
-              border-style: none;
-              margin-top: 24px;
-              margin-bottom: 24px;
-            `}
-          ></hr>
-        )}
-        <div
-          css={css`
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-          `}
-        >
+        {this.props.isFirst && <hr css={spacerLineStyle}></hr>}
+        <div css={productContainer}>
           <CartModalLeftPanel
             productDetails={this.props.productDetails}
             styling={leftPanelStyling}
@@ -217,15 +215,7 @@ export default class CartProduct extends Component {
             imageSwitcher={true}
           />
         </div>
-        <hr
-          css={css`
-            background: #e5e5e5;
-            height: 1px;
-            border-style: none;
-            margin-top: 24px;
-            margin-bottom: 24px;
-          `}
-        ></hr>
+        <hr css={spacerLineStyle}></hr>
       </>
     );
   }

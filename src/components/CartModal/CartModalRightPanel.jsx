@@ -15,6 +15,55 @@ import { ReactComponent as BigPlusButton } from "../../svgs/plus-square-big.svg"
 import { ReactComponent as BigMinusButton } from "../../svgs/minus-square-big.svg";
 import { ReactComponent as ImageArrow } from "../../svgs/cart-image-chevron.svg";
 
+const imageSwitcherContainer = css`
+  display: flex;
+  position: absolute;
+  min-width: 200px;
+  min-height: 288px;
+  z-index: 5;
+`;
+
+const nextImageButton = css`
+  position: relative;
+  left: 160px;
+  top: 248px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.73);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const previousImageButton = css`
+  position: relative;
+  left: 104px;
+  top: 248px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.73);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 class CartModalRightPanel extends Component {
   constructor(props) {
     super(props);
@@ -85,61 +134,15 @@ class CartModalRightPanel extends Component {
             css={imageStyle}
           />
           {imageSwitcher && this.state.imageNumber > 1 && (
-            <div
-              css={css`
-                display: flex;
-                //gap: 8px;
-                position: absolute;
-                min-width: 200px;
-                min-height: 288px;
-                z-index: 5;
-              `}
-            >
+            <div css={imageSwitcherContainer}>
               <button
-                css={css`
-                  position: relative;
-                  left: 160px;
-                  top: 248px;
-                  width: 24px;
-                  height: 24px;
-                  padding: 0;
-                  display: flex;
-
-                  justify-content: center;
-                  align-items: center;
-
-                  background: rgba(0, 0, 0, 0.73);
-                  transform: matrix(-1, 0, 0, 1, 0, 0);
-                  border: none;
-                  &:hover {
-                    cursor: pointer;
-                  }
-                `}
+                css={nextImageButton}
                 onClick={() => this.handleNextImage()}
               >
                 <ImageArrow />
               </button>
               <button
-                css={css`
-                  position: relative;
-                  left: 104px;
-                  top: 248px;
-                  width: 24px;
-                  height: 24px;
-                  padding: 0;
-                  display: flex;
-
-                  justify-content: center;
-                  align-items: center;
-
-                  background: rgba(0, 0, 0, 0.73);
-                  transform: matrix(-1, 0, 0, 1, 0, 0);
-
-                  border: none;
-                  &:hover {
-                    cursor: pointer;
-                  }
-                `}
+                css={previousImageButton}
                 onClick={() => this.handlePreviousImage()}
               >
                 <ImageArrow
