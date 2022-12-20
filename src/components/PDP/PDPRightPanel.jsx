@@ -13,6 +13,45 @@ import PDPAddToCartButton from "./PDPAddToCartButton";
 import PDPAttributes from "./PDPAttributes";
 import PDPPrice from "./PDPPrice";
 
+const containerStyle = css`
+  margin-left: 50px;
+  width: 292px;
+`;
+
+const brandName = css`
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 27px;
+  color: #1d1f22;
+  margin-bottom: 8px;
+`;
+
+const productName = css`
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 27px;
+  color: #1d1f22;
+  margin-top: 8px;
+  margin-bottom: 43px;
+  font-feature-settings: "lnum" 1;
+`;
+
+const productDescription = css`
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 159.96%;
+  color: #1d1f22;
+  max-height: 280px;
+  overflow-y: auto;
+  margin-top: 40px;
+`;
+
 class PDPRightPanel extends Component {
   constructor(props) {
     super(props);
@@ -49,75 +88,34 @@ class PDPRightPanel extends Component {
   }
 
   render() {
-    console.log(this.state.productAttributesValues);
+    const productDetails = this.props.productDetails;
 
     return (
-      <div
-        css={css`
-          margin-left: 50px;
-          width: 292px;
-        `}
-      >
-        <div
-          css={css`
-            font-family: "Raleway";
-            font-style: normal;
-            font-weight: 600;
-            font-size: 30px;
-            line-height: 27px;
-            color: #1d1f22;
-            margin-bottom: 8px;
-          `}
-        >
-          {this.props.productDetails.brand}
-        </div>
-        <div
-          css={css`
-            font-family: "Raleway";
-            font-style: normal;
-            font-weight: 400;
-            font-size: 30px;
-            line-height: 27px;
-            color: #1d1f22;
-            margin-top: 8px;
-            margin-bottom: 43px;
-            font-feature-settings: "lnum" 1;
-          `}
-        >
-          {this.props.productDetails.name}
-        </div>
+      <div css={containerStyle}>
+        <div css={brandName}>{productDetails.brand}</div>
+        <div css={productName}>{productDetails.name}</div>
         <div>
           <PDPAttributes
-            attributes={this.props.productDetails.attributes}
+            attributes={productDetails.attributes}
             onProductAttributeChange={this.handleProductAttributeChange}
             attributeValues={this.state.productAttributesValues}
           />
           <PDPPrice
             currencySymbol={this.props.currency.symbol}
             productPrice={
-              this.props.productDetails.prices.find((price) => {
+              productDetails.prices.find((price) => {
                 return price.currency.label === this.props.currency.label;
               }).amount
             }
           />
           <PDPAddToCartButton
-            inStock={this.props.productDetails.inStock}
+            inStock={productDetails.inStock}
             onButtonClick={this.handleAddToCartButtonClick}
           />
           <div
-            css={css`
-              font-family: "Roboto";
-              font-style: normal;
-              font-weight: 400;
-              font-size: 16px;
-              line-height: 159.96%;
-              color: #1d1f22;
-              max-height: 280px;
-              overflow-y: auto;
-              margin-top: 40px;
-            `}
+            css={productDescription}
             dangerouslySetInnerHTML={{
-              __html: this.props.productDetails.description,
+              __html: productDetails.description,
             }}
           ></div>
         </div>
