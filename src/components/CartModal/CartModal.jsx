@@ -7,6 +7,10 @@ import { Navigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
 import CartModalProduct from "./CartModalProduct";
+import {
+  selectCartPriceSum,
+  selectCartAmount,
+} from "../../features/product_data/cartSlice";
 
 const viewBagStyle = css`
   width: 140px;
@@ -68,21 +72,8 @@ class CartModal extends Component {
   }
 
   render() {
-    const cartProductAmount = this.props.cartContent.reduce(
-      (cartValue, cartProduct) => (cartValue += cartProduct.cartAmount),
-      0
-    );
-
-    const cartProductPriceSum = this.props.cartContent
-      .reduce(
-        (cartValue, cartProduct) =>
-          (cartValue +=
-            cartProduct.prices.find((price) => {
-              return price.currency.label === this.props.currency.label;
-            }).amount * cartProduct.cartAmount),
-        0
-      )
-      .toFixed(2);
+    const cartProductAmount = this.props.cartAmount;
+    const cartProductPriceSum = this.props.cartPriceSum;
 
     if (this.props.isOpen) {
       return createPortal(
@@ -239,6 +230,8 @@ const mapStateToProps = function (state) {
   return {
     cartContent: state.cart.cartProducts,
     currency: state.currencies.selectedCurrency,
+    cartPriceSum: selectCartPriceSum(state),
+    cartAmount: selectCartAmount(state),
   };
 };
 

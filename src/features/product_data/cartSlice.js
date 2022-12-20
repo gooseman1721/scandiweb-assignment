@@ -126,6 +126,28 @@ const cartSlice = createSlice({
   },
 });
 
+function selectCartPriceSum(state) {
+  return state.cart.cartProducts
+    .reduce(
+      (cartValue, cartProduct) =>
+        (cartValue +=
+          cartProduct.prices.find((price) => {
+            return (
+              price.currency.label === state.currencies.selectedCurrency.label
+            );
+          }).amount * cartProduct.cartAmount),
+      0
+    )
+    .toFixed(2);
+}
+
+function selectCartAmount(state) {
+  return state.cart.cartProducts.reduce(
+    (cartValue, cartProduct) => (cartValue += cartProduct.cartAmount),
+    0
+  );
+}
+
 export const {
   addItem,
   addProductToCart,
@@ -135,6 +157,6 @@ export const {
   removeItem,
 } = cartSlice.actions;
 
-export { fetchProductCartDetails };
+export { fetchProductCartDetails, selectCartPriceSum, selectCartAmount };
 
 export default cartSlice.reducer;

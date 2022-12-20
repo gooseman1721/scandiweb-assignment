@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { css } from "@emotion/react";
 import { connect } from "react-redux";
 import CartProduct from "../components/CartPage/CartPageProduct";
+import CartPageSummary from "../components/CartPage/CartPageSummary";
 
 class CartPage extends Component {
   render() {
@@ -41,7 +42,7 @@ class CartPage extends Component {
             <CartProduct key={index} isFirst={index === 0} productDetails={product} />
           ))}
         </div>
-        <div>full price tax etc</div>
+        <CartPageSummary />
       </div>
     );
   }
