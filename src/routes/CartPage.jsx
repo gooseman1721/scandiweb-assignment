@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import { connect } from "react-redux";
 import CartProduct from "../components/CartPage/CartPageProduct";
 import CartPageSummary from "../components/CartPage/CartPageSummary";
+import CartPageButton from "../components/CartPage/CartPageButton";
 
 class CartPage extends Component {
   render() {
@@ -43,6 +44,7 @@ class CartPage extends Component {
           ))}
         </div>
         <CartPageSummary />
+        <CartPageButton />
       </div>
     );
   }
