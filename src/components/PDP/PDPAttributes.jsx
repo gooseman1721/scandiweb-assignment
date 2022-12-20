@@ -122,13 +122,14 @@ export default class PDPAttributes extends Component {
               ? -1
               : 0;
           })
-          .map((attribute) => (
+          .map((attribute, index) => (
             <Attribute
               attribute={attribute}
               attributeValues={attributeValues}
               onProductAttributeChange={onProductAttributeChange}
               styling={styling}
               attributeType={attribute.type}
+              key={index}
             />
           ))}
       </div>

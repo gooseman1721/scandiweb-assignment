@@ -4,7 +4,7 @@ import React, { Component } from "react";
 
 import Attribute from "./Attribute";
 
-export default class CartModalProductAttributes extends Component {
+export default class CartProductAttributes extends Component {
   render() {
     const { attributeValues, attributes, attributesStyling } = this.props;
     const attributesArray = structuredClone(attributes);
@@ -22,12 +22,13 @@ export default class CartModalProductAttributes extends Component {
               ? -1
               : 0;
           })
-          .map((attribute) => (
+          .map((attribute, index) => (
             <Attribute
               attribute={attribute}
               attributeValues={attributeValues}
               styling={attributesStyling}
               attributeType={attribute.type}
+              key={index}
             />
           ))}
       </div>
