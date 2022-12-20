@@ -97,7 +97,7 @@ class CartModal extends Component {
           <div
             css={css`
               position: absolute;
-              right: 163px;
+              right: 73px;
               width: 325px;
               height: 677px;
               z-index: 1000;
