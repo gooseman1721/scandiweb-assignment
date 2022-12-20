@@ -73,6 +73,7 @@ const leftPanelStyling = {
     line-height: 160%;
   `,
   priceStyle: css`
+    margin-bottom: 8px;
     font-family: "Raleway";
     font-style: normal;
     font-weight: 500;
@@ -195,7 +196,10 @@ export default class CartModalProduct extends Component {
           styling={leftPanelStyling}
           attributesStyling={attributesStyling}
         />
-        <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} />
+        <CartModalRightPanel
+          productDetails={this.props.productDetails}
+          styling={rightPanelStyling}
+        />
       </div>
     );
   }
