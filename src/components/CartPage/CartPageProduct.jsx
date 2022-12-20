@@ -18,8 +18,8 @@ const rightPanelStyling = {
     min-height: 100px;
   `,
   plusMinusButtonsStyle: css`
-    height: 24px;
-    width: 24px;
+    height: 45px;
+    width: 45px;
     padding: 0;
     background-color: #ffffff11;
     border: 0px;
@@ -208,7 +208,7 @@ export default class CartProduct extends Component {
             styling={leftPanelStyling}
             attributesStyling={attributesStyling}
           />
-          <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} />
+          <CartModalRightPanel productDetails={this.props.productDetails} styling={rightPanelStyling} bigButtons={true} />
         </div>
         <hr
           css={css`
