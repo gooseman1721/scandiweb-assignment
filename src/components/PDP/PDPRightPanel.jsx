@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import parse from "html-react-parser";
 
 import { css } from "@emotion/react";
 import {
@@ -112,12 +113,9 @@ class PDPRightPanel extends Component {
             inStock={productDetails.inStock}
             onButtonClick={this.handleAddToCartButtonClick}
           />
-          <div
-            css={productDescription}
-            dangerouslySetInnerHTML={{
-              __html: productDetails.description,
-            }}
-          ></div>
+          <div css={productDescription}>
+            {parse(productDetails.description)}
+          </div>
         </div>
       </div>
     );
