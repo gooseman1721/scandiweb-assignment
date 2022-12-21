@@ -39,6 +39,61 @@ const quickAddToCartStyle = css`
   }
 `;
 
+const cardImageContainer = css`
+  height: 330px;
+  width: 354px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: auto;
+`;
+
+const cardImage = css`
+  flex-shrink: 1;
+  max-height: 100%;
+  max-width: 100%;
+  z-index: 1;
+`;
+
+const outOfStockBar = css`
+  z-index: 2;
+  position: absolute;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 160%;
+  color: #8d8f9a;
+  background-color: #e4e0e08f;
+  width: 386px;
+  text-align: center;
+`;
+
+const productCardTextContainer = css`
+  margin-top: 24px;
+  margin-left: 16px;
+  margin-right: 16px;
+`;
+
+const productCardName = css`
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: normal;
+  font-feature-settings: "lnum" 1;
+`;
+
+const productCardPrice = css`
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  font-feature-settings: "lnum" 1;
+`;
+
 class ProductCard extends Component {
   constructor(props) {
     super(props);
@@ -88,88 +143,32 @@ class ProductCard extends Component {
         `}
         onClick={() => this.handleCardClick()}
       >
-        <div
-          css={css`
-            height: 330px;
-            width: 354px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin: auto;
-          `}
-        >
+        <div css={cardImageContainer}>
           <img
             src={this.props.productData.gallery}
             alt={this.props.productData.name}
             height={330}
-            css={css`
-              flex-shrink: 1;
-              max-height: 100%;
-              max-width: 100%;
-              z-index: 1;
-              ${this.props.productData.inStock === false &&
-              `
-                opacity: 0.5;
-              `}
-            `}
+            css={cardImage}
+            style={{ opacity: `${this.props.productData.inStock ? 1 : 0.5}` }}
           />
           {this.props.productData.inStock === false && (
-            <div
-              css={css`
-                z-index: 2;
-                position: absolute;
-                font-family: "Raleway";
-                font-style: normal;
-                font-weight: 400;
-                font-size: 24px;
-                line-height: 160%;
-                color: #8d8f9a;
-                background-color: #e4e0e08f;
-                width: 386px;
-                text-align: center;
-              `}
-            >
-              OUT OF STOCK
-            </div>
+            <div css={outOfStockBar}>OUT OF STOCK</div>
           )}
         </div>
-        <div
-          css={css`
-            margin-top: 24px;
-            margin-left: 16px;
-            margin-right: 16px;
-          `}
-        >
+        <div css={productCardTextContainer}>
           <div
-            css={css`
-              font-family: "Raleway";
-              font-style: normal;
-              font-weight: 300;
-              font-size: 18px;
-              line-height: normal;
-              font-feature-settings: "lnum" 1;
-              ${this.props.productData.inStock === false &&
-              `
-                color: #8d8f9a;
-              `}
-            `}
+            css={productCardName}
+            style={{
+              color: `${this.props.productData.inStock ? null : "#8d8f9a"}`,
+            }}
           >
             {this.props.productData.brand} {this.props.productData.name}
           </div>
           <div
-            css={css`
-              font-family: "Raleway";
-              font-style: normal;
-              font-weight: 500;
-              font-size: 18px;
-              line-height: 160%;
-              font-feature-settings: "lnum" 1;
-              ${this.props.productData.inStock === false &&
-              `
-                color: #8d8f9a;
-              `}
-            `}
+            css={productCardPrice}
+            style={{
+              color: `${this.props.productData.inStock ? null : "#8d8f9a"}`,
+            }}
           >
             {this.props.currency.symbol}
             {

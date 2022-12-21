@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const productCategoriesSlice = createSlice({
-  name: "productList",
+  name: "productCategories",
   initialState,
   reducers: {
     productCategoriesCreate(state, action) {

@@ -10,6 +10,18 @@ import { productDetailsCreate } from "../features/product_data/productDetailsSli
 import PDPRightPanel from "../components/PDP/PDPRightPanel";
 import PDPImageCarousel from "../components/PDP/PDPImageCarousel";
 
+const pdpContainer = css`
+  background-color: #ffffff;
+  width: 1440px;
+  height: 933px;
+  margin: auto;
+`;
+
+const pdpContent = css`
+  margin-top: 80px;
+  display: flex;
+`;
+
 export function withRouter(Children) {
   return (props) => {
     const params = { params: useParams() };
@@ -27,34 +39,11 @@ class ProductDisplayPage extends Component {
     };
   }
 
-  componentDidMount() {
-    // get_item_details(this.props.params.params.productId).then(
-    //   (graphql_result) =>
-    //     this.props.productDetailsCreate(graphql_result.product)
-    // );
-    // this.setState({
-    //   thisProductDetails: this.props.productDetails.filter((product) => {
-    //     return product.id === this.props.params.params.productId;
-    //   }),
-    // });
-  }
-
   render() {
     return (
-      <div
-        css={css`
-          background-color: #ffffff;
-          width: 1440px;
-          height: 933px;
-
-          margin: auto;
-        `}
-      >
-        <div css={css`
-          margin-top: 80px;
-          display: flex;
-        `}>
-          <PDPImageCarousel productDetails={this.state.thisProductDetails}/>
+      <div css={pdpContainer}>
+        <div css={pdpContent}>
+          <PDPImageCarousel productDetails={this.state.thisProductDetails} />
           <PDPRightPanel productDetails={this.state.thisProductDetails} />
         </div>
       </div>

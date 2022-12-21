@@ -6,6 +6,24 @@ import ActionsNav from "./ActionsNav";
 import Logo from "./Logo";
 import CartModal from "../CartModal/CartModal";
 
+const topBarStyle = css`
+  background-color: #ffffff;
+  margin: auto;
+  height: 80px;
+  width: 1440px;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 2000;
+`;
+
+const cartModalContainerStyle = css`
+  display: flex;
+  flex-direction: row;
+  margin-right: 100px;
+`;
+
 export default class TopBar extends Component {
   constructor(props) {
     super(props);
@@ -21,35 +39,14 @@ export default class TopBar extends Component {
 
   render() {
     return (
-      <div
-        css={css`
-          background-color: #ffffff;
-          margin: auto;
-          height: 80px;
-          width: 1440px;
-          top: 0;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          z-index: 2000;
-        `}
-      >
+      <div css={topBarStyle}>
         <CategoryNav
           openCloseModal={this.handleCartButtonClick}
           modalIsOpen={this.state.modalOpen}
         />
         <Logo />
         <ActionsNav openCloseModal={this.handleCartButtonClick} />
-        <div
-          css={css`
-            display: flex;
-            flex-direction: row;
-            //flex-grow: 1;
-            margin-right: 100px;
-          `}
-        >
-          {/* <ActionsNav openCloseModal={this.handleCartButtonClick} /> */}
-
+        <div css={cartModalContainerStyle}>
           <CartModal
             isOpen={this.state.modalOpen}
             openCloseModal={this.handleCartButtonClick}

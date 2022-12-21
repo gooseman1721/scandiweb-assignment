@@ -28,9 +28,7 @@ export default class Attribute extends Component {
       case "text":
         return (
           <div key={attribute.id}>
-            <div css={attributeNameStyle}>
-              {attribute.name + ":"}
-            </div>
+            <div css={attributeNameStyle}>{attribute.name + ":"}</div>
             <div css={attributesContainerStyleText}>
               {attribute.items.map((selectedAttribute) => {
                 const selected =
@@ -62,9 +60,7 @@ export default class Attribute extends Component {
       case "swatch":
         return (
           <div key={attribute.id}>
-            <div css={attributeNameStyle}>
-              {attribute.name + ":"}
-            </div>
+            <div css={attributeNameStyle}>{attribute.name + ":"}</div>
             <div css={attributesContainerStyleSwatch}>
               {attribute.items.map((selectedAttribute) => {
                 const selected =

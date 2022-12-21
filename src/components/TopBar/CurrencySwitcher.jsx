@@ -11,6 +11,31 @@ import {
 
 import { ReactComponent as DownArrow } from "../../svgs/currency-switcher-arrow.svg";
 
+const switcherModal = css`
+  position: absolute;
+  margin-top: 10px;
+  transform: translate(-20px);
+  width: 114px;
+  display: flex;
+  gap: 0px;
+  flex-direction: column;
+  z-index: 5000;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+`;
+
+const switcherCurrency = css`
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 45px;
+  background: #ffffffff;
+  &:hover {
+    cursor: pointer;
+    background: #eeeeee;
+  }
+`;
+
 class CurrencySwitcher extends Component {
   constructor(props) {
     super(props);
@@ -64,33 +89,11 @@ class CurrencySwitcher extends Component {
           )}
         </div>
         {this.state.switcherOpen ? (
-          <div
-            css={css`
-              position: absolute;
-              transform: translate(-20px);
-              width: 114px;
-              display: flex;
-              gap: 0px;
-              flex-direction: column;
-              z-index: 5000;
-              box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-            `}
-          >
+          <div css={switcherModal}>
             {this.props.currencies.map((currency, index) => (
               <div
                 key={index}
-                css={css`
-                  text-align: center;
-                  justify-content: center;
-                  align-items: center;
-                  display: flex;
-                  height: 45px;
-                  background: #ffffffff;
-                  &:hover {
-                    cursor: pointer;
-                    background: #eeeeee;
-                  }
-                `}
+                css={switcherCurrency}
                 onClick={() => {
                   this.handleCurrencyClick(currency.label, currency.symbol);
                 }}

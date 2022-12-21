@@ -8,6 +8,16 @@ import { Navigate } from "react-router-dom";
 
 import { changeSelectedCategory } from "../../features/product_data/productCategoriesSlice";
 
+const containerStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 234px;
+  margin-left: 100px;
+  height: 80px;
+  flex-grow: 1;
+`;
+
 class CategoryNav extends Component {
   constructor(props) {
     super(props);
@@ -23,8 +33,6 @@ class CategoryNav extends Component {
 
     if (window.location.pathname !== "/") {
       this.setState({ changePage: true });
-  
-
     } else if (window.location.pathname === "/") {
       this.setState({ changePage: false });
     }
@@ -32,22 +40,11 @@ class CategoryNav extends Component {
     if (this.props.modalIsOpen) {
       this.props.openCloseModal();
     }
-
   }
 
   render() {
     return (
-      <div
-        css={css`
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          width: 234px;
-          margin-left: 100px;
-          height: 80px;
-          flex-grow: 1;
-        `}
-      >
+      <div css={containerStyle}>
         {this.props.categories.map((categoryName, index) => (
           <div
             key={index}
@@ -78,7 +75,7 @@ class CategoryNav extends Component {
             {categoryName.toUpperCase()}
           </div>
         ))}
-        {/* This page changing feature results in flashing, should be done differently */}
+        {/* This page changing feature sometimes results in flashing, should be done differently */}
         {this.state.changePage && window.location.pathname !== "/" && (
           <>
             {this.setState({ changePage: false })}

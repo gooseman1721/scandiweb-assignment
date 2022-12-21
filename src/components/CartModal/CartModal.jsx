@@ -63,7 +63,6 @@ const portalStyle = css`
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
   background-color: rgba(57, 55, 72, 0.22);
   z-index: 1000;
   color: #1d1f22;
@@ -178,6 +177,9 @@ class CartModal extends Component {
             height: `calc(${
               document.getElementById("root").scrollHeight
             }px - 78px)`,
+            width: `calc(${
+              document.getElementById("root").scrollWidth
+            }px)`,
           }}
           onClick={() => this.handleCartClick()}
         >
@@ -195,8 +197,8 @@ class CartModal extends Component {
             </div>
 
             <div css={modalProductContainerStyle}>
-              {this.props.cartContent.map((cartProduct) => (
-                <CartModalProduct productDetails={cartProduct} />
+              {this.props.cartContent.map((cartProduct, index) => (
+                <CartModalProduct key={index} productDetails={cartProduct} />
               ))}
             </div>
             <div css={modalTotalValueContainer}>
