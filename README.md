@@ -15,12 +15,12 @@ Frontend for an internet shop website.
 
 ## Technology
 
-- React.js with class components (assigment requirement)
-- CSS - CSS in JS with Emotion, similiar to styled-components 
-- Redux for state management
-- React Router for routing
-- Opus (@tilework/opus) for GraphQL requests
-- html-react-parser to parse HTML in some product descriptions
+- [React.js](https://reactjs.org/) with class components (assigment requirement)
+- CSS - CSS in JS with [Emotion](https://emotion.sh/), similiar to [styled-components](https://styled-components.com/) 
+- [React Redux](https://react-redux.js.org/) for state management
+- [React Router](https://reactrouter.com/) for routing
+- [Opus](https://www.npmjs.com/package/@tilework/opus) for GraphQL requests
+- [html-react-parser](https://www.npmjs.com/package/html-react-parser) to parse HTML in some product descriptions
 
 ## Design
 
