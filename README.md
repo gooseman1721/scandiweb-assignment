@@ -16,7 +16,7 @@ Frontend for an internet shop website.
 ## Technology
 
 - React.js with class components (assigment requirement)
-- CSS - CSS in JS with Emotion, similiar to styled-components 
+- CSS - CSS in JSX with Emotion, similiar to styled-components 
 - Redux for state management
 - React Router for routing
 - Opus (@tilework/opus) for GraphQL requests
