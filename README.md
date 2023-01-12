@@ -15,7 +15,7 @@ Frontend for an internet shop website.
 
 ## Technology
 
-- [React.js](https://reactjs.org/) with class components (assigment requirement)
+- [React.js](https://reactjs.org/) with class components (assignment requirement)
 - CSS - CSS in JSX with [Emotion](https://emotion.sh/), similiar to [styled-components](https://styled-components.com/) 
 - [React Redux](https://react-redux.js.org/) for state management
 - [React Router](https://reactrouter.com/) for routing
