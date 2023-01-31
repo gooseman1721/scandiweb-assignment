@@ -24,7 +24,10 @@ export default class ActionsNav extends Component {
     return (
       <div css={actionsNavStyle}>
         <div>
-          <CurrencySwitcher />
+          <CurrencySwitcher
+            openCloseSwitcher={this.props.openCloseSwitcher}
+            currencySwitcherOpen={this.props.currencySwitcherOpen}
+          />
         </div>
         <div onClick={() => this.handleCartClick()}>
           <CartButton />

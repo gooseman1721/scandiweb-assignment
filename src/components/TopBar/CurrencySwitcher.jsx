@@ -37,14 +37,6 @@ const switcherCurrency = css`
 `;
 
 class CurrencySwitcher extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { switcherOpen: false };
-  }
-  handleCurrencySwitcherClick() {
-    this.setState({ switcherOpen: !this.state.switcherOpen });
-  }
-
   handleCurrencyClick(currencyLabel, currencySymbol) {
     this.props.changeSelectedCurrency({
       label: currencyLabel,
@@ -75,10 +67,10 @@ class CurrencySwitcher extends Component {
               cursor: pointer;
             }
           `}
-          onClick={() => this.handleCurrencySwitcherClick()}
+          onClick={() => this.props.openCloseSwitcher()}
         >
           {this.props.selectedCurrency.symbol}{" "}
-          {this.state.switcherOpen ? (
+          {this.props.currencySwitcherOpen ? (
             <DownArrow
               css={css`
                 transform: rotate(180deg);
@@ -88,7 +80,7 @@ class CurrencySwitcher extends Component {
             <DownArrow />
           )}
         </div>
-        {this.state.switcherOpen ? (
+        {this.props.currencySwitcherOpen ? (
           <div css={switcherModal}>
             {this.props.currencies.map((currency, index) => (
               <div

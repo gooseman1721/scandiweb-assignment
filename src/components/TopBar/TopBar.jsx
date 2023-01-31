@@ -33,8 +33,10 @@ export default class TopBar extends Component {
   constructor(props) {
     super(props);
     this.handleCartButtonClick = this.handleCartButtonClick.bind(this);
+    this.handleSwitcherClick = this.handleSwitcherClick.bind(this);
     this.state = {
       modalOpen: false,
+      currencySwitcherOpen: false,
     };
   }
 
@@ -42,13 +44,30 @@ export default class TopBar extends Component {
     this.setState({ modalOpen: !this.state.modalOpen });
   }
 
+  handleModalClose() {
+    if (this.state.modalOpen === true) {
+      this.setState({ modalOpen: false });
+    }
+  }
+
+  handleSwitcherClick() {
+    this.setState({ currencySwitcherOpen: !this.state.currencySwitcherOpen });
+  }
+
+  handleSwitcherClose() {
+    if (this.state.currencySwitcherOpen === true) {
+      this.setState({ currencySwitcherOpen: false });
+    }
+  }
+
   render() {
     return (
       <div
         css={topBarStyle}
-        onClick={
-          this.state.modalOpen ? () => this.handleCartButtonClick() : null
-        }
+        onClick={() => {
+          this.handleModalClose();
+          this.handleSwitcherClose();
+        }}
       >
         <CategoryNav
           openCloseModal={this.handleCartButtonClick}
@@ -57,7 +76,11 @@ export default class TopBar extends Component {
         <div css={logoStyle}>
           <ShopLogo />
         </div>
-        <ActionsNav openCloseModal={this.handleCartButtonClick} />
+        <ActionsNav
+          openCloseModal={this.handleCartButtonClick}
+          currencySwitcherOpen={this.state.currencySwitcherOpen}
+          openCloseSwitcher={this.handleSwitcherClick}
+        />
         <div css={cartModalContainerStyle}>
           <CartModal
             isOpen={this.state.modalOpen}
