@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { css } from "@emotion/react";
 
+import { attributeSortingFunction } from "../../utils";
 import Attribute from "../Attribute";
 
 const styling = {
@@ -113,15 +114,7 @@ export default class PDPAttributes extends Component {
       <div>
         {attributesArray
           // sorting so that attribute types appear always in the same order
-          .sort((a, b) => {
-            let attributeTypeA = a.type;
-            let attributeTypeB = b.type;
-            return attributeTypeA < attributeTypeB
-              ? 1
-              : attributeTypeA > attributeTypeB
-              ? -1
-              : 0;
-          })
+          .sort(attributeSortingFunction)
           .map((attribute, index) => (
             <Attribute
               attribute={attribute}
