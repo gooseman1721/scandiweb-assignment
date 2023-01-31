@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { css } from "@emotion/react";
 import CategoryNav from "./CategoryNav";
 import ActionsNav from "./ActionsNav";
-import Logo from "./Logo";
 import CartModal from "../CartModal/CartModal";
+import { ReactComponent as ShopLogo } from "../../svgs/logo.svg";
 
 const topBarStyle = css`
   background-color: #ffffff;
@@ -21,6 +21,11 @@ const topBarStyle = css`
 const cartModalContainerStyle = css`
   display: flex;
   flex-direction: row;
+  margin-right: 100px;
+`;
+
+const logoStyle = css`
+  margin: auto;
   margin-right: 100px;
 `;
 
@@ -44,7 +49,9 @@ export default class TopBar extends Component {
           openCloseModal={this.handleCartButtonClick}
           modalIsOpen={this.state.modalOpen}
         />
-        <Logo />
+        <div css={logoStyle}>
+          <ShopLogo />
+        </div>
         <ActionsNav openCloseModal={this.handleCartButtonClick} />
         <div css={cartModalContainerStyle}>
           <CartModal
