@@ -33,7 +33,7 @@ class CategoryNav extends Component {
 
     if (window.location.pathname !== "/") {
       this.setState({ changePage: true });
-    } else if (window.location.pathname === "/") {
+    } else {
       this.setState({ changePage: false });
     }
 
