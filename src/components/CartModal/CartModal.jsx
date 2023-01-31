@@ -174,12 +174,8 @@ class CartModal extends Component {
         <div
           css={portalStyle}
           style={{
-            height: `calc(${
-              document.getElementById("root").scrollHeight
-            }px - 78px)`,
-            width: `calc(${
-              document.getElementById("root").scrollWidth
-            }px)`,
+            height: `${document.documentElement.scrollHeight}px`,
+            width: `100%`,
           }}
           onClick={() => this.handleCartClick()}
         >
