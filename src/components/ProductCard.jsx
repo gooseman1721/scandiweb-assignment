@@ -106,11 +106,10 @@ class ProductCard extends Component {
   handleCardClick() {
     this.setState({ cardClicked: true });
     if (!this.props.productDetailsIdList.includes(this.props.productData.id)) {
-      get_item_details(this.props.productData.id)
-        .then((graphql_result) =>
-          this.props.productDetailsCreate(graphql_result.product)
-        )
-        .then(() => this.setState({ detailsFetched: true }));
+      get_item_details(this.props.productData.id).then((graphql_result) => {
+        this.props.productDetailsCreate(graphql_result.product);
+        this.setState({ detailsFetched: true });
+      });
     } else {
       this.setState({ detailsFetched: true });
     }
