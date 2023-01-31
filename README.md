@@ -2,6 +2,11 @@
 
 Frontend for an internet shop website.
 
+## Setup and launching
+
+1. `npm install` to install dependencies
+2. `npm start` to run the app locally at http://localhost:3000
+
 ## Functionality
 
 - All data (products, currencies, prices and product categories) is from a provided GraphQL endpoint
