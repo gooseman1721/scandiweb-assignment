@@ -10,90 +10,105 @@ export default class Attribute extends Component {
     }
   }
 
-  render() {
-    const { attribute, attributeValues, attributeType } = this.props;
+  renderTextAttributes() {
+    const { attribute, attributeValues } = this.props;
     const {
       attributeNameStyle,
       attributesContainerStyleText,
-      attributesContainerStyleSwatch,
       selectedTextAttributeStyle,
       unselectedTextAttributeStyle,
+    } = this.props.styling;
+
+    return (
+      <div key={attribute.id}>
+        <div css={attributeNameStyle}>{attribute.name + ":"}</div>
+        <div css={attributesContainerStyleText}>
+          {attribute.items.map((selectedAttribute) => {
+            const selected =
+              attributeValues[attribute.name] === selectedAttribute.id;
+            const textAttributeStyle = selected
+              ? selectedTextAttributeStyle
+              : unselectedTextAttributeStyle;
+
+            return (
+              <div
+                key={selectedAttribute.id}
+                css={textAttributeStyle}
+                onClick={() =>
+                  selected
+                    ? null
+                    : this.handleAttributeClick(
+                        attribute.id,
+                        selectedAttribute.id
+                      )
+                }
+              >
+                {selectedAttribute.displayValue}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  renderSwatchAttributes() {
+    const { attribute, attributeValues } = this.props;
+    const {
+      attributeNameStyle,
+      attributesContainerStyleSwatch,
       selectedSwatchAttributeStyle,
       unselectedSwatchAttributeStyle,
       selectedSwatchBorderBoxStyle,
       unselectedSwatchBorderBoxStyle,
     } = this.props.styling;
 
+    return (
+      <div key={attribute.id}>
+        <div css={attributeNameStyle}>{attribute.name + ":"}</div>
+        <div css={attributesContainerStyleSwatch}>
+          {attribute.items.map((selectedAttribute) => {
+            const selected =
+              attributeValues[attribute.name] === selectedAttribute.id;
+            const swatchBorderBoxStyle = selected
+              ? selectedSwatchBorderBoxStyle
+              : unselectedSwatchBorderBoxStyle;
+            const swatchAttributeStyle = selected
+              ? selectedSwatchAttributeStyle
+              : unselectedSwatchAttributeStyle;
+
+            return (
+              <div key={selectedAttribute.id} css={swatchBorderBoxStyle}>
+                <div
+                  css={css`
+                    ${swatchAttributeStyle}
+                    background-color: ${selectedAttribute.value};
+                  `}
+                  onClick={() =>
+                    selected
+                      ? null
+                      : this.handleAttributeClick(
+                          attribute.id,
+                          selectedAttribute.id
+                        )
+                  }
+                ></div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { attributeType } = this.props;
+
     switch (attributeType) {
       case "text":
-        return (
-          <div key={attribute.id}>
-            <div css={attributeNameStyle}>{attribute.name + ":"}</div>
-            <div css={attributesContainerStyleText}>
-              {attribute.items.map((selectedAttribute) => {
-                const selected =
-                  attributeValues[attribute.name] === selectedAttribute.id;
-                const textAttributeStyle = selected
-                  ? selectedTextAttributeStyle
-                  : unselectedTextAttributeStyle;
-
-                return (
-                  <div
-                    key={selectedAttribute.id}
-                    css={textAttributeStyle}
-                    onClick={() =>
-                      selected
-                        ? null
-                        : this.handleAttributeClick(
-                            attribute.id,
-                            selectedAttribute.id
-                          )
-                    }
-                  >
-                    {selectedAttribute.displayValue}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
+        return this.renderTextAttributes();
       case "swatch":
-        return (
-          <div key={attribute.id}>
-            <div css={attributeNameStyle}>{attribute.name + ":"}</div>
-            <div css={attributesContainerStyleSwatch}>
-              {attribute.items.map((selectedAttribute) => {
-                const selected =
-                  attributeValues[attribute.name] === selectedAttribute.id;
-                const swatchBorderBoxStyle = selected
-                  ? selectedSwatchBorderBoxStyle
-                  : unselectedSwatchBorderBoxStyle;
-                const swatchAttributeStyle = selected
-                  ? selectedSwatchAttributeStyle
-                  : unselectedSwatchAttributeStyle;
-
-                return (
-                  <div key={selectedAttribute.id} css={swatchBorderBoxStyle}>
-                    <div
-                      css={css`
-                        ${swatchAttributeStyle}
-                        background-color: ${selectedAttribute.value};
-                      `}
-                      onClick={() =>
-                        selected
-                          ? null
-                          : this.handleAttributeClick(
-                              attribute.id,
-                              selectedAttribute.id
-                            )
-                      }
-                    ></div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
+        return this.renderSwatchAttributes();
       default:
         return <></>;
     }
