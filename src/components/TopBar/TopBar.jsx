@@ -44,7 +44,12 @@ export default class TopBar extends Component {
 
   render() {
     return (
-      <div css={topBarStyle}>
+      <div
+        css={topBarStyle}
+        onClick={
+          this.state.modalOpen ? () => this.handleCartButtonClick() : null
+        }
+      >
         <CategoryNav
           openCloseModal={this.handleCartButtonClick}
           modalIsOpen={this.state.modalOpen}
