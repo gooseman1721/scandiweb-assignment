@@ -109,13 +109,11 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProductCartDetails.fulfilled, (state, action) => {
-      const defaultAttributeValues = () => {
-        const attributeObj = {};
-        action.payload.product.attributes.forEach((element) => {
-          attributeObj[element.id] = element.items[0].id;
-        });
-        return attributeObj;
-      };
+      const defaultAttributeValues = () =>
+        action.payload.product.attributes.reduce((result, element) => {
+          result[element.id] = element.items[0].id;
+          return result;
+        }, {});
 
       state.cartProducts.push({
         ...action.payload.product,
