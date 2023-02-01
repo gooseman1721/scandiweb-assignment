@@ -4,9 +4,9 @@ import { Component } from "react";
 import { css } from "@emotion/react";
 import { connect } from "react-redux";
 
-import { get_category_names, get_category_items } from "../GraphQLEndpoint";
+import { get_category_items } from "../GraphQLEndpoint";
 
-import { productCategoriesCreate } from "../features/product_data/productCategoriesSlice";
+import { fetchCategoryNames } from "../features/product_data/productCategoriesSlice";
 import { productListCreate } from "../features/product_data/productListSlice";
 import ProductCardGrid from "../components/ProductCardGrid";
 
@@ -28,24 +28,27 @@ const categoryPageTitle = css`
 `;
 
 class CategoryPage extends Component {
-  saveProductCategories = (productCategories) => {
-    this.props.productCategoriesCreate(productCategories);
-  };
-
   componentDidMount() {
     // fetch category names first
-    get_category_names()
-      .then((graphql_result) => {
-        this.saveProductCategories(graphql_result);
-      })
-      // then fetch category items after we have a category
-      .then(() => {
-        get_category_items(
-          this.props.categories[this.props.selectedCategory]
-        ).then((graphql_result) => {
-          this.props.productListCreate(graphql_result);
+    if (this.props.categories[0] === "default") {
+      this.props
+        .fetchCategoryNames()
+        // then fetch category items after we have a category
+        .then(() => {
+          get_category_items(
+            this.props.categories[this.props.selectedCategory]
+          ).then((graphql_result) => {
+            this.props.productListCreate(graphql_result);
+          });
         });
+      // if already fetched
+    } else {
+      get_category_items(
+        this.props.categories[this.props.selectedCategory]
+      ).then((graphql_result) => {
+        this.props.productListCreate(graphql_result);
       });
+    }
   }
   componentDidUpdate(prevProps) {
     // fetch category items after user changes category
@@ -84,6 +87,6 @@ const mapStateToProps = function (state) {
 };
 
 export default connect(mapStateToProps, {
-  productCategoriesCreate,
   productListCreate,
+  fetchCategoryNames,
 })(CategoryPage);
